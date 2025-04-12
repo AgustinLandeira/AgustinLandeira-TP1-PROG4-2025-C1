@@ -1,1 +1,24 @@
-<p>registro works!</p>
+@if(this.formGroup){
+
+    <div class="login-page">
+
+        <div class="form">
+
+            <h1> Register </h1>
+
+            <form class="register-form" [formGroup]="this.formGroup">
+
+                <input formControlName="nombre" type="text" placeholder="name"/>
+                <input formControlName="apellido"  placeholder="first name"/>
+                <input formControlName="edad" type="text" placeholder="age"/>
+                <button (click)="registrarUsuario()">Register</button>
+
+                <p class="message">already registered? <a routerLink="/login">sign in</a></p>
+            </form>
+        
+        </div>
+    </div>
+
+}
+
+

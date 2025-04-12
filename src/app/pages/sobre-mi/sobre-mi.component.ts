@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { GithubService } from '../../services/github.service';
 
 @Component({
   selector: 'app-sobre-mi',
@@ -6,6 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './sobre-mi.component.html',
   styleUrl: './sobre-mi.component.css'
 })
-export class SobreMiComponent {
+export class SobreMiComponent implements OnInit{
 
+  miGithub = inject(GithubService)
+  
+
+  ngOnInit(): void {
+      console.log("hola")
+  }
 }
