@@ -1,30 +1,34 @@
 
-@if(miGithub.resultado){
+@if(miGithub.resultado()){
     <div class="about-wrapper">
         <div class="about-container">
-            <h1 class="title">ABOUT <span>ME</span></h1>
+            <h1 class="title">Sobre <span>Mi</span></h1>
             <p class="subtitle">
-            A web developer designs and creates websites and web applications, ensuring functionality, user experience, and responsiveness.
+            Estoy {{miGithub.resultado().bio}}.Soy un estudiante desarrollador de software  
+            dedicado y entusiasta con conocimientos en numerosas plataformas y lenguajes. Tengo una gran capacidad de adaptación y 
+            muchas ganas de trabajar y aprender.
             </p>
 
             <div class="about-content">
             <div class="profile-image">
-                <img [src]="miGithub.resultado" alt="Profile" />
+                <img [src]="miGithub.resultado().avatar_url" alt="Profile" />
             </div>
             <div class="about-text">
-                <h2>Hello!! I am <span>{{miGithub.resultado.name}}</span></h2>
+                <h2>Hola!! soy <span>{{miGithub.resultado().name}}</span></h2>
                 <p>
-                A web developer is a professional responsible for creating and maintaining websites. They possess a strong command
-                of programming languages such as HTML, CSS, and JavaScript, using these tools to design and build user-friendly
-                and visually appealing websites.
+                    Estoy en la búsqueda de un trabajo que me permita poner en practica los conocimientos adquiridos y aprender en un entorno de trabajo, 
+                    tengo conocimiento en lenguajes de programación tales como Python, C#,Typescript,javascript y Php,Frameworks como Angular y NodeJs. 
+                    Además tengo conocimiento en motores de base de datos como MySql y SqlServer,SQLITE y por ultimo entornos de trabajo tales como visual studio code 
+                    y visual studio.
                 </p>
 
                 <ul>
-                    <li><strong>Nombre :</strong> {{miGithub.resultado.name}}</li>
-                    <li><strong>Edad :</strong> 35</li>
-                    <li><strong>celular :</strong> +91 XXXXXXXXXXX</li>
-                    <li><strong>Mail :</strong> laurelexample.com</li>
-                    <li><strong>Ubicacion :</strong> {{miGithub.resultado.location}}</li>
+                    <li><strong>Nombre :</strong> {{miGithub.resultado().name}}</li>
+                    <li><strong>Edad :</strong> 21</li>
+                    <li><strong>celular :</strong> 1121730039</li>
+                    <li><strong>Mail :</strong> landeira2017&#64;gmail.com</li>
+                    <li><strong>Ubicacion :</strong> {{miGithub.resultado().location}}</li>
+                    <li><strong>Github :</strong> <a [href]="miGithub.resultado().html_url" target="_blank"> Mi github</a></li>
                 </ul>
             </div>
             </div>

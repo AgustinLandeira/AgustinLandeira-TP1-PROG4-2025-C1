@@ -101,4 +101,16 @@
 .about-text li {
     margin-bottom: 8px;
 }
+
+li a {
+    color: #FFA500;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+  
+li a:hover {
+    color: #FF6600;
+    text-shadow: 0 0 5px rgba(255, 165, 0, 0.7);
+}
   
