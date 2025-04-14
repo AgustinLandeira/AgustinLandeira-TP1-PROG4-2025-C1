@@ -10,9 +10,9 @@ import { GithubService } from '../../services/github.service';
 export class SobreMiComponent implements OnInit{
 
   miGithub = inject(GithubService)
-  
 
   ngOnInit(): void {
-      console.log("hola")
+      
+    this.miGithub.traer()
   }
 }

@@ -9,6 +9,9 @@
             <form class="register-form" [formGroup]="this.formGroup">
 
                 <input formControlName="nombre" type="text" placeholder="name"/>
+                @if(error){
+                    <p>{{tipoError}}</p>
+                }
                 <input formControlName="apellido"  placeholder="first name"/>
                 <input formControlName="edad" type="text" placeholder="age"/>
                 <button (click)="registrarUsuario()">Register</button>
