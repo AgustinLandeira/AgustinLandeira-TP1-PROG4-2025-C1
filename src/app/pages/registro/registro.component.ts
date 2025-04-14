@@ -16,8 +16,11 @@ export class RegistroComponent implements OnInit{
   //usamos los servicios
   db = inject(DbService)
   github = inject(GithubService)
-  error : boolean = false
+  error : boolean = false;
   tipoError: string = ""
+  errorNombre: string = "";
+  errorApellido: string = ""
+  errorEdad: string = ""
 
   ngOnInit(): void {
       
@@ -33,7 +36,7 @@ export class RegistroComponent implements OnInit{
 
   registrarUsuario(){
 
-    this.identificarErrores()
+    
     console.log(this.formGroup)
     if(this.formGroup?.invalid)return
 
@@ -58,16 +61,46 @@ export class RegistroComponent implements OnInit{
     return this.formGroup?.get("edad")
   }
 
-  identificarErrores(){
+  identificarErrores(control :any,campo: string){
 
-    this.error = true
-    if(this.nombre?.hasError("required")){
+    if( control?.hasError("required") && control.touched ){
 
-      this.tipoError = "el nombre es requerido"
-    }else if (this.nombre?.hasError("minlength")){
-      this.tipoError = "el nombre tiene que tener un minimo de 4 caracteres"
-    }else if (this.nombre?.hasError("maxlength")){
-      this.tipoError = "el nombre tiene que tener un maximo de 9 caracteres"
+      this.tipoError = "este campo es requerido"
+      this.error = true
+
+    }else if (control?.hasError("minlength") && control.touched){
+
+      this.tipoError = "este campo tiene que tener un minimo de 4 caracteres"
+      this.error = true
+
+    }else if (control.hasError("maxlength") && control.touched){
+
+      this.tipoError = "este campo tiene que tener un maximo de 9 caracteres"
+      this.error = true
+
+    }else if(control?.hasError("pattern") && control?.touched){
+
+      this.tipoError = "la edad es invalida"
+      this.error = true
+    }else{
+      this.error = false
+    }
+    
+    if(this.error)this.identificarCampoError(campo)
+
+    return this.error
+  }
+
+  identificarCampoError(campo: string){
+
+    if(campo == "nombre"){
+
+      this.errorNombre = this.tipoError
+    }else if(campo == "apellido"){
+
+      this.errorApellido = this.tipoError
+    }else{
+      this.errorEdad = this.tipoError
     }
   }
 }

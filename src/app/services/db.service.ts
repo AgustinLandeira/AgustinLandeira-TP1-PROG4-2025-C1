@@ -27,6 +27,17 @@ export class DbService {
     console.log(error)
     console.log(data)
 
+  }
 
+  async traerListado(): Promise<Usuario[] | []>{
+
+    const {data,error} = await this.suparbase.from("tp1").select("nombre,apellido")
+
+    if(error){
+      return []
+    }
+
+    console.log(data)
+    return data as Usuario[]
   }
 }
