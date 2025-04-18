@@ -5,6 +5,7 @@ import { DbService } from '../../services/db.service';
 import { Usuario } from '../../class/usuario';
 import { GithubService } from '../../services/github.service';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-registro',
   imports: [FormsModule,ReactiveFormsModule,RouterLink,],
@@ -47,6 +48,7 @@ export class RegistroComponent implements OnInit{
     })
   }
 
+  //registramos el usuario a la bd
   async registrarUsuario(){
 
     if(this.formGroup?.invalid)return // si es invalido el formulario no seguimos
@@ -59,8 +61,9 @@ export class RegistroComponent implements OnInit{
     
     if(this.authService.registrado()){//verificamos si funciono registrarse
       
-      console.log("agregando usuario")
+      this.authService.guardarNombreUsuario(this.mail?.value)
       this.db.agregarUsuario(usuario)
+      this.mostrarRegistroExitoso()
       this.router.navigateByUrl("/bienvenida")
       
     }
@@ -89,6 +92,8 @@ export class RegistroComponent implements OnInit{
     return this.formGroup?.get("contra")
   }
 
+  //encuentro el error especifico
+  //params(control: el controlador,el campo del registro)
   identificarErrores(control :any,campo: string){
 
     if( control?.hasError("required") && control.touched ){
@@ -123,6 +128,7 @@ export class RegistroComponent implements OnInit{
     return this.error
   }
 
+  //identifico al campo que tiene el error
   identificarCampoError(campo: string){
 
     if(campo == "nombre"){
@@ -146,7 +152,18 @@ export class RegistroComponent implements OnInit{
     }
   }
 
-  //crear una cuenta
+  mostrarRegistroExitoso(){
+    Swal.fire({
+          title: "Te logueaste correctamente !!",
+          text: "Bienvenido devuelta a la sala de juegos",
+          background:"#1c1c1c",
+          color : "#ffffff",
+          confirmButtonColor: 'orange',
+          icon : "success",
+          iconColor: "orange",
+          confirmButtonText: "Aceptar"
+        })
+  }
 
 
 }

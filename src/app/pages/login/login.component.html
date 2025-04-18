@@ -10,6 +10,12 @@
         @if(identificarErrores(this.contra,"contra")){
           <p class="error-text">{{errorContra}}</p>
         }
+
+        <div class="test-buttons">
+          <button type="button" (click)="autocompletar('test1')">Test1</button>
+          <button type="button" (click)="autocompletar('test2')">Test2</button>
+          <button type="button" (click)="autocompletar('test3')">Test3</button>
+        </div>
         <button (click)="logearse()">Iniciar Sesion</button>
         
         @if(authService.sesionEncontrada() == false) {

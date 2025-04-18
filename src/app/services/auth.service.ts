@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { PostgrestQueryBuilder } from '@supabase/postgrest-js';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-
+import Swal from "sweetalert2"
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,12 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 export class AuthService {
 
   suparbase : SupabaseClient<any, "public", any>
+
   registrado = signal<any | null>(null)
   sesionEncontrada = signal<any | null>(null)
   nombreLogueado = signal<any  | null>(null)
+
+  obj ?: any
   constructor() { 
 
     this.suparbase = createClient("https://sibndstdwpyfrhowrqui.supabase.co",
@@ -24,14 +27,15 @@ export class AuthService {
       switch(event){
 
         case "SIGNED_IN":
-          console.log("te registraste");
+          console.log("abriste sesion")
           break;
         case "SIGNED_OUT"  : 
-          console.log("cerraste sesion");
+          console.log("cerraste sesion")
           break;
         case "INITIAL_SESSION":
           console.log("no pasa nada");
           break;
+        
         
       }
       if(sesion == null){
@@ -116,4 +120,25 @@ export class AuthService {
       }
     }
   }
+
+  // mostrarSweetAlert(mensaje: any){
+
+  //   Swal.fire({
+
+  //     title : mensaje.titulo,
+  //     text: mensaje.mensaje,
+  //     icon: mensaje.icon,
+  //     confirmButtonColor: 'orange',
+  //     background: "1c1c1c"
+
+  //   }).then((resultado)=>{
+
+  //     if(resultado.isDenied){
+  //       Swal.fire({
+  //         title
+  //       })
+  //     }
+  //   })
+
+  // }
 }

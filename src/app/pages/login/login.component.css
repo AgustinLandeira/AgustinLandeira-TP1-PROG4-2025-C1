@@ -11,8 +11,9 @@
 }
 
 .login-page {
-    width: 360px;
-    padding: 8% 0 0;
+    width: 100%;
+    max-width: 360px;
+    padding: 4% 0 0;
     margin: auto;
 }
 
@@ -130,3 +131,25 @@
     text-align: center;
 }
 
+.test-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.test-buttons button {
+    flex: 1;
+    background: #e0e0e0;
+    border: none;
+    padding: 8px 0;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.test-buttons button:hover {
+    background: #ffcc80;
+}
