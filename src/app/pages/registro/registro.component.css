@@ -95,3 +95,31 @@
     font-weight: 500;
 }
 
+.error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 500;
+    animation: aparecer 0.3s ease-in-out;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.success-text {
+    margin-top: 15px;
+    color: red;
+    font-size: 12px;
+    font-weight: 500;
+    animation: aparecer 0.3s ease-in-out;
+    text-align: center;
+}

@@ -8,17 +8,22 @@ import { Usuario } from '../class/usuario';
 export class DbService {
 
   suparbase : SupabaseClient<any, "public", any>
-  tablaUsuarios : PostgrestQueryBuilder<any, any, "tp1", unknown>
+  tablaUsuarios : PostgrestQueryBuilder<any, any, "usuarios", unknown>
+  usuarioActual = {
+    nombre: ""
+  }
+  
   constructor() {
 
     //nos conectamos a supabase poniendo la url de la bd y key api
-    this.suparbase = createClient("https://jbbrrijnxnpxpiozmzby.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiYnJyaWpueG5weHBpb3ptemJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0MTQxODEsImV4cCI6MjA1OTk5MDE4MX0.OJxmCEfyzzIbUqXuJX6cnNgifETDAZYWAjR054TyfG0"
-    )
+    this.suparbase = createClient("https://sibndstdwpyfrhowrqui.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpYm5kc3Rkd3B5ZnJob3dycXVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4OTY2NDMsImV4cCI6MjA2MDQ3MjY0M30.znnkchrr9NrYdXncKtJN_nBSWV_yUMiIUtQWhdB1LEQ")
+
 
     console.log(this.suparbase)
 
-    this.tablaUsuarios = this.suparbase.from("tp1");
+    this.tablaUsuarios = this.suparbase.from("usuarios");
+    console.log(this.tablaUsuarios)
   }
 
   async agregarUsuario(usuario: Usuario){
@@ -29,15 +34,5 @@ export class DbService {
 
   }
 
-  async traerListado(): Promise<Usuario[] | []>{
 
-    const {data,error} = await this.suparbase.from("tp1").select("nombre,apellido")
-
-    if(error){
-      return []
-    }
-
-    console.log(data)
-    return data as Usuario[]
-  }
 }

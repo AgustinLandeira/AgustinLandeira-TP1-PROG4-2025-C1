@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterLink } from '@angular/router';
 import { DbService } from '../../services/db.service';
 import { Usuario } from '../../class/usuario';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,40 +17,32 @@ export class LoginComponent implements OnInit {
 
   tipoError : string = "";
   error : boolean = false
-  errorNombre: string = "";
-  errorApellido: string = ""
+  errorMail: string = "";
+  errorContra: string = ""
+  errorGlobal: boolean = false
 
-  db = inject(DbService)
+  authService = inject(AuthService)
+  router = inject(Router)
+
   listaUsuarios : Usuario[] = []
   ngOnInit(): void {
       
     this.formGroup = new FormGroup({
 
-      "nombre" : new FormControl("",[Validators.required,Validators.minLength(4),Validators.maxLength(9)]),
-      "apellido": new FormControl("",[Validators.required,Validators.minLength(5),Validators.maxLength(12)])
+      "mail" : new FormControl("",[Validators.required,Validators.minLength(4),Validators.maxLength(24),Validators.email]),
+      "contra": new FormControl("",[Validators.required,Validators.minLength(5),Validators.maxLength(12)])
 
     })
 
-    this.db.traerListado().then((usuario) =>{
-
-      this.listaUsuarios = usuario
-      console.log(this.listaUsuarios)
-    })
-
-
   }
 
-  constructor(private router: Router){
+  get mail(){
 
+    return this.formGroup?.get("mail")
   }
 
-  get Nombre(){
-
-    return this.formGroup?.get("nombre")
-  }
-
-  get Apellido(){
-    return this.formGroup?.get("apellido")
+  get contra(){
+    return this.formGroup?.get("contra")
   }
 
   identificarErrores(control :any,campo: string){
@@ -60,13 +53,20 @@ export class LoginComponent implements OnInit {
       this.error = true
     }else if (control?.hasError("minlength") && control.touched){
 
-      this.tipoError = "este campo tiene que tener un minimo de 4 caracteres"
+      this.tipoError = `este campo tiene que tener un minimo de ${control.getError("minlength").requiredLength} caracteres`
       this.error = true
 
     }else if (control.hasError("maxlength") && control.touched){
 
-      this.tipoError = "este campo tiene que tener un maximo de 9 caracteres"
       this.error = true
+      
+      this.tipoError = `este campo tiene que tener un maximo de ${control.getError("maxlength").requiredLength} caracteres` 
+
+    }else if (control.hasError("email") && control.touched){
+
+      this.error = true
+      
+      this.tipoError = "El mail es invalido" 
 
     }else{
       this.error = false
@@ -79,23 +79,23 @@ export class LoginComponent implements OnInit {
 
   identificarCampoError(campo: string){
 
-    if(campo == "nombre"){
+    if(campo == "mail"){
 
-      this.errorNombre = this.tipoError
+      this.errorMail = this.tipoError
     }else{
 
-      this.errorApellido = this.tipoError
+      this.errorContra = this.tipoError
     }
   }
 
-  logearse(){
+  async logearse(){
 
-    const respuesta = this.listaUsuarios.map( usuario => usuario.nombre == this.Nombre.value && usuario.apellido == this.Apellido.value)
-    
-    if(respuesta.includes(true)){
+    await this.authService.iniciarSesion(this.mail.value,this.contra.value)
 
-      console.log("entre")
-      this.router.navigate(["/bienvenida"])
+    if(this.authService.sesionEncontrada() == true){
+
+      this.authService.guardarNombreUsuario(this.mail.value)
+      this.router.navigateByUrl("/bienvenida")
     }
 
 

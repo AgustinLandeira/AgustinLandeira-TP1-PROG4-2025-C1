@@ -2,15 +2,19 @@
     <div class="form">
         <h1> Iniciar sesion </h1>
       <form class="login-form" [formGroup]="this.formGroup">
-        <input formControlName="nombre" type="text" placeholder="Nombre"/>
-        @if(identificarErrores(this.Nombre,"nombre")){
-          <p>{{tipoError}}</p>
+        <input formControlName="mail" type="text" placeholder="Ingrese mail"/>
+        @if(identificarErrores(this.mail,"mail")){
+          <p class="error-text">{{errorMail}}</p>
         }
-        <input formControlName="apellido" type="text" placeholder="Apellido"/>
-        @if(identificarErrores(this.Apellido,"apellido")){
-          <p>{{tipoError}}</p>
+        <input formControlName="contra" type="text" placeholder="Ingrese contraseña"/>
+        @if(identificarErrores(this.contra,"contra")){
+          <p class="error-text">{{errorContra}}</p>
         }
         <button (click)="logearse()">Iniciar Sesion</button>
+        
+        @if(authService.sesionEncontrada() == false) {
+          <p class="global-error">El mail o contraseña son incorrectos</p>
+        }
         <p class="message">No estas registrado? <a routerLink="/registro">Crea una cuenta</a></p>
       </form>
     </div>

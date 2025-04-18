@@ -9,19 +9,39 @@
             <form class="register-form" [formGroup]="this.formGroup">
 
                 <input formControlName="nombre" type="text" placeholder="Nombre"/>
+
                 @if(this.identificarErrores(this.nombre,"nombre")){
-                    <p>{{errorNombre}}</p>
+                    <p class="error-text">{{errorNombre}}</p>
                 }
                 <input formControlName="apellido"  placeholder="Apellido"/>
+
                 @if(this.identificarErrores(this.apellido,"apellido")){
-                    <p>{{errorApellido}}</p>
+                    <p class="error-text">{{errorApellido}}</p>
                 }
+
                 <input formControlName="edad" type="text" placeholder="Edad"/>
+
                 @if(this.identificarErrores(this.edad,"edad")){
-                    <p>{{errorEdad}}</p>
+                    <p class="error-text">{{errorEdad}}</p>
+                }
+                <input type="email" placeholder="example@gmail.com" formControlName="mail">
+
+                @if(this.identificarErrores(this.mail,"mail")){
+                    <p class="error-text">{{errorMail}}</p>
+                }
+
+                <input type="text" formControlName="contra" placeholder="contraseña">
+
+                @if(this.identificarErrores(this.contra,"contraseña")){
+                    <p class="error-text">{{errorcontra}}</p>
                 }
 
                 <button (click)="registrarUsuario()">Registrarse</button>
+
+                @if(authService.registrado() == false){
+                    <p class="success-text">El mail ya esta en uso</p>
+                }
+
                 
                 <p class="message">Ya estas registrado? <a routerLink="/login">Iniciar sesion</a></p>
             </form>
