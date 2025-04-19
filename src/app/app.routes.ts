@@ -6,6 +6,7 @@ import { SobreMiComponent } from './pages/sobre-mi/sobre-mi.component';
 import { AhorcadoComponent } from './components/ahorcado/ahorcado.component';
 import { PreguntadosComponent } from './components/preguntados/preguntados.component';
 import { MayorMenorComponent } from './components/mayor-menor/mayor-menor.component';
+import { ErrorComponent } from './pages/error/error.component';
 
 export const routes: Routes = [
     
@@ -42,9 +43,18 @@ export const routes: Routes = [
 
     },
     {
+        "path":"error",
+        component:ErrorComponent,
+    },
+    {
 
         "path": "",
         redirectTo: "bienvenida",
         pathMatch:"full"
     },
+    {
+        "path":"**",
+        redirectTo:"error",
+        pathMatch:"full"
+    }
 ];

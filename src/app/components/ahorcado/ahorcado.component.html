@@ -1,1 +1,31 @@
-<p>ahorcado works!</p>
+<nav class="navbar">
+    <h1 class="game-title">Preguntados</h1>
+    <div class="nav-actions">
+      <button class="nav-button">Reiniciar</button>
+      <button class="nav-button">Salir</button>
+    </div>
+  </nav>
+  
+  <main class="game-container">
+    <div class="hangman-image">
+      <img [src]="this.parteActual" alt="Ahorcado" />
+    </div>
+  
+    <div class="word-container">
+      
+        @for(letra of letras;track $index){
+
+            <span >{{letra}}</span>
+        }
+      
+    </div>
+  
+    <div class="keyboard">
+      <button 
+        
+      >
+       
+      </button>
+    </div>
+  </main>
+  
