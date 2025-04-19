@@ -6,6 +6,7 @@
     background: #1c1c1c;
     color: white;
     min-height: 100vh;
+    
 }
 
 /* Navbar */
@@ -75,6 +76,7 @@
     text-align: center;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s;
+   
 }
 
 .game-card:hover {

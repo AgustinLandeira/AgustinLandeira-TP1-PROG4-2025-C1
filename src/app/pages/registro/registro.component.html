@@ -39,7 +39,7 @@
                 <button (click)="registrarUsuario()">Registrarse</button>
 
                 @if(authService.registrado() == false){
-                    <p class="success-text">El mail ya esta en uso</p>
+                    <p class="denied-text">El mail ya esta en uso</p>
                 }
 
                 

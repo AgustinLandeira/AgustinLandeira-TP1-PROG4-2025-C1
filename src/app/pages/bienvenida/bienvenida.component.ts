@@ -14,6 +14,10 @@ export class BienvenidaComponent {
 
   auth = inject(AuthService)
 
+  //url
+  urlAhorcado:string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//ahorcado2.jpg" ;
+  urlPreguntados: string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//quiz-time.jpg";
+  urlMayorMenor :string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//mayor-menor.png";
 
   constructor(){}
 

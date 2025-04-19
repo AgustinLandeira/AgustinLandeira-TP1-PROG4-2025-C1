@@ -110,6 +110,7 @@
     text-align: left;
     font-weight: 500;
     animation: aparecer 0.3s ease-in-out;
+
 }
 
 @keyframes aparecer {
@@ -129,6 +130,9 @@
     font-weight: 500;
     animation: aparecer 0.3s ease-in-out;
     text-align: center;
+    border: 2px solid red;
+    background-color: #000000;
+    
 }
 
 .test-buttons {

@@ -14,21 +14,21 @@
 
 <main class="game-section">
   <section class="game-card">
-    <img src="" alt="Juego 1" />
-    <h2>Nombre del Juego 1</h2>
-    <button class="play-button">Jugar</button>
+    <img [src]="urlAhorcado" alt="Juego 1" />
+    <h2>Ahorcado</h2>
+    <button class="play-button" routerLink="/ahorcado">Jugar</button>
   </section>
 
   <section class="game-card">
-    <img src="" alt="Juego 2" />
-    <h2>Nombre del Juego 2</h2>
-    <button class="play-button">Jugar</button>
+    <img [src]="urlPreguntados" alt="Juego 2" />
+    <h2>Preguntados</h2>
+    <button class="play-button" routerLink="/preguntados">Jugar</button>
   </section>
 
   <section class="game-card">
-    <img src="" alt="Juego 3" />
+    <img [src]="urlMayorMenor" alt="Juego 3" />
     <h2>Nombre del Juego 3</h2>
-    <button class="play-button">Jugar</button>
+    <button class="play-button" routerLink="/mayor-menor">Jugar</button>
   </section>
 
   <section class="game-card">
