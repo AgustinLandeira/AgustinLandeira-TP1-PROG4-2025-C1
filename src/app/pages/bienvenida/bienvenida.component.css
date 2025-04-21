@@ -2,11 +2,11 @@
 
 :host {
     display: block;
-    font-family: 'Roboto', sans-serif;
+    
     background: #1c1c1c;
     color: white;
     min-height: 100vh;
-    
+    font-family: 'Press Start 2P', cursive;
 }
 
 /* Navbar */
@@ -29,12 +29,13 @@
     background: orange;
     border: none;
     color: white;
-    padding: 10px 16px;
+    padding: 5px 10px;
     margin-left: 10px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
     transition: 0.3s;
+   
 }
 
 .nav-button:hover {
@@ -74,8 +75,9 @@
     border-radius: 12px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); */
     transition: transform 0.3s;
+    box-shadow: 0 0 15px orange;
    
 }
 
@@ -88,6 +90,7 @@
     max-width: 200px;
     border-radius: 8px;
     margin-bottom: 15px;
+    
 }
 
 .game-card h2 {

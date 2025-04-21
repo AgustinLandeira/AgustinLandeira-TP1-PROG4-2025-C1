@@ -1,31 +1,56 @@
 <nav class="navbar">
-    <h1 class="game-title">Preguntados</h1>
+    <h1 class="game-title">Ahorcado</h1>
+    <p class="timer">⏳ Tiempo restante: {{ tiempoRestante() * 1000 | date:'mm:ss' }}</p>
     <div class="nav-actions">
-      <button class="nav-button">Reiniciar</button>
-      <button class="nav-button">Salir</button>
+      <button class="nav-button" (click)="reiniciarJuego()">Reiniciar</button>
+      <button class="nav-button" routerLink="/bienvenida">Salir</button>
     </div>
-  </nav>
+</nav>
   
   <main class="game-container">
+    
+
+    <h2 class="game-subtitle">Adivina la palabra</h2>
+  
     <div class="hangman-image">
       <img [src]="this.parteActual" alt="Ahorcado" />
     </div>
   
     <div class="word-container">
-      
-        @for(letra of letras;track $index){
-
-            <span >{{letra}}</span>
-        }
-      
+      <!-- Esta será la palabra con guiones o letras acertadas -->
+      <p class="word">{{ this.palabraDesconocida }}</p>
     </div>
   
     <div class="keyboard">
-      <button 
-        
-      >
-       
-      </button>
+      @for(letra of letras; track $index) {
+        <button class="key-button" (click)="compararLetra(letra)" [disabled]="this.letrasUsadas.includes(letra)">{{ letra }}</button>
+      }
     </div>
   </main>
+
+  <!-- Modal de Victoria -->
+
+  @if(mostralModaVictoria){
+    <div class="modal">
+      <div class="modal-content win">
+        <h2>¡Ganaste! 🎉</h2>
+        <p>¡Felicitaciones, adivinaste la palabra!</p>
+        <button class="modal-button" (click)="reiniciarJuego()">Jugar de nuevo</button>
+      </div>
+    </div>
+  }
+
+  @if(mostrarModelDerrota){
+    <!-- Modal de Derrota -->
+    <div class="modal">
+      <div class="modal-content lose">
+        <h2>¡Perdiste! 😢</h2>
+        <p>La palabra era: <strong>{{ palabraElegida }}</strong></p>
+        <button class="modal-button" (click)="reiniciarJuego()">Intentar otra vez</button>
+      </div>
+    </div>
+  }
+
+
+
   
