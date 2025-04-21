@@ -123,7 +123,7 @@ export class AhorcadoComponent implements OnInit {
     }else{
       this.error += 1
       this.parteActual = this.partesAhorcado[this.error]
-      this.detenerTemporizador()
+      
       this.verificarPartidaPerdida()
     }
     
@@ -145,7 +145,7 @@ export class AhorcadoComponent implements OnInit {
 
   verificarPartidaPerdida(){
     if(this.error == 5){
-
+      this.detenerTemporizador()
       this.mostrarModelDerrota = true 
 
     }
