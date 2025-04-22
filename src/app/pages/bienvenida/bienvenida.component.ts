@@ -52,7 +52,7 @@ export class BienvenidaComponent {
             iconColor: "orange",
             background:"#1c1c1c",
             color : "#ffffff",
-            text: "Si queres jugar a un juego,registrate denuevo!!!!!!.",
+            text: "Si queres jugar a un juego,accede a tu cuenta!!!!!!.",
             confirmButtonText: "Aceptar",
             confirmButtonColor: 'orange',
           }).then((resultado)=>{

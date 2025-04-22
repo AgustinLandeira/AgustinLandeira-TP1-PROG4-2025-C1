@@ -29,12 +29,13 @@
     background: orange;
     border: none;
     color: white;
-    padding: 5px 10px;
-    margin-left: 10px;
+    padding: 8px 12px; /* más chico que 5px 10px */
+    margin-left: 8px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
     transition: 0.3s;
+    font-size: 12px; /* antes no tenía definido, ahora es más chico */
    
 }
 
@@ -46,7 +47,7 @@
 .user-info {
     background: #333;
     color: orange;
-    padding: 10px 16px;
+    padding: 10px 15px;
     margin-left: 10px;
     border-radius: 6px;
     font-weight: bold;

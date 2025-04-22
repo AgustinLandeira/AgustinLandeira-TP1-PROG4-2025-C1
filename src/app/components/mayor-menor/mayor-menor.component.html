@@ -1,1 +1,55 @@
-<p>mayor-menor works!</p>
+<nav class="navbar">
+    <h1 class="game-title">Mayor o menor</h1>
+    <p class="timer">⏳ Tiempo restante: {{ tiempoRestante() * 1000 | date:'mm:ss' }}</p>
+    <div class="nav-actions">
+      <button class="nav-button" (click)="reiniciar()">Reiniciar</button>
+      <button class="nav-button" routerLink="/bienvenida">Salir</button>
+    </div>
+</nav>
+
+<main class="juego-main">
+    <h1 class="titulo-juego">
+        ¿La siguiente es...?
+    </h1>
+
+    <div class="carta-container">
+        <img [src]="cartaActual?.imagen" alt="Carta actual" class="carta-imagen" />
+    </div>
+
+    <div class="botones-mayor-menor">
+        <button class="boton-juego" (click)="verificar('mayor')">Mayor</button>
+        <button class="boton-juego" (click)="verificar('menor')">Menor</button>
+    </div>
+
+    <div class="resultado">
+        <p>✅ Aciertos: {{ aciertos }}</p>
+        <p>❌ Errores: {{ errados }}</p>
+    </div>
+</main>
+ <!-- Modal de Victoria -->
+
+ @if(partidaGanada){
+    <div class="modal">
+      <div class="modal-content win">
+        <h2>¡Ganaste! 🎉</h2>
+        <p>✅ Adivinaste: {{ aciertos }} veces</p>
+        <p>❌ Fallaste: {{ errados }} veces</p>
+        <button class="modal-button" (click)="reiniciar()">Jugar de nuevo</button>
+      </div>
+    </div>
+  }
+
+  @if(partidaPerdida){
+    <!-- Modal de Derrota -->
+    <div class="modal">
+      <div class="modal-content lose">
+        <h2>¡Perdiste! 😢</h2>
+
+        <p>❌ Fallaste: {{ errados }} veces</p>
+        <p>✅ Adivinaste: {{ aciertos }} veces</p>
+        
+        <button class="modal-button" (click)="reiniciar()">Intentar otra vez</button>
+      </div>
+    </div>
+  }
+

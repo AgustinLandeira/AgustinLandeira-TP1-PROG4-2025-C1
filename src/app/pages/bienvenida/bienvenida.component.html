@@ -2,6 +2,7 @@
   <h1 class="logo">Sala de Juegos</h1>
   <div class="nav-buttons">
     
+    <button class="nav-button" routerLink="/sobre-mi"> ¿Quien soy?</button>
     @if(!auth.nombreLogueado()){
       <button class="nav-button" routerLink="/login">Iniciar Sesión</button>
       <button class="nav-button" routerLink="/registro">Registro</button>
@@ -9,6 +10,7 @@
       <button class="nav-button" (click)="cerrarSesion()">cerrar Sesion</button>
       <p class="user-info">Usuario: {{auth.nombreLogueado()}}</p>
     }
+    
   </div>
 </nav>
 
