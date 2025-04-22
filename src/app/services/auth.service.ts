@@ -121,24 +121,5 @@ export class AuthService {
     }
   }
 
-  // mostrarSweetAlert(mensaje: any){
-
-  //   Swal.fire({
-
-  //     title : mensaje.titulo,
-  //     text: mensaje.mensaje,
-  //     icon: mensaje.icon,
-  //     confirmButtonColor: 'orange',
-  //     background: "1c1c1c"
-
-  //   }).then((resultado)=>{
-
-  //     if(resultado.isDenied){
-  //       Swal.fire({
-  //         title
-  //       })
-  //     }
-  //   })
-
-  // }
+ 
 }

@@ -1,8 +1,13 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { imagen } from '../../interfaz/imagen';
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { UsuarioMayorMenor } from '../../class/ahorcadoUsuario';
+import { AuthService } from '../../services/auth.service';
+import { AhorcadoComponent } from '../ahorcado/ahorcado.component';
+import { AhorcadoScoreService } from '../../services/juegos/ahorcado/ahorcado-score.service';
+import { MayorMenorScoreService } from '../../services/juegos/mayor-menor/mayor-menor-score.service';
 
 @Component({
   selector: 'app-mayor-menor',
@@ -12,16 +17,27 @@ import { CommonModule } from '@angular/common';
 })
 export class MayorMenorComponent implements OnInit {
 
+  //usuarioahorcado
+  usuario ?: UsuarioMayorMenor
+
+  //servicos
+  user = inject(AuthService)
+  dbMayorMenor = inject(MayorMenorScoreService)
+
+  //variables para el tiempo
+  tiempoFinal :string = ""
   temporizador!: Subscription
   contador = 60
   tiempoRestante = signal<number>(this.contador)
   vueltas = 0
 
+  //datos de la partida
   aciertos : number = 0
   errados: number = 0
   partidaGanada = false
   partidaPerdida = false
 
+  //listas
   urls:string[] = [
     "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes/cartas/uno-espada.jpg",
     "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes/cartas/2-espada.jpg",
@@ -39,6 +55,7 @@ export class MayorMenorComponent implements OnInit {
   ]
   listaCartas : imagen[] = []
 
+  //imagenes
   cartaActual?: imagen
   siguienteCarta?:imagen
 
@@ -46,7 +63,7 @@ export class MayorMenorComponent implements OnInit {
       
     this.listaCartas = this.agregarCartas(this.urls)
     this.cartaActual = this.elegirPrimeraCarta(this.listaCartas)
-    
+   
     this.siguienteCarta = this.elegirSiguienteCarta(this.listaCartas,this.cartaActual)
     this.iniciarTemporizador()
   }
@@ -59,17 +76,31 @@ export class MayorMenorComponent implements OnInit {
 
       this.contador -= 1
       this.tiempoRestante.set(this.contador)
-
+      
       if(this.tiempoRestante() <= 0){
 
         this.terminarTemporizador()
         this.partidaPerdida = true
+        
       }
     })
   }
 
   terminarTemporizador(){
+
     this.temporizador.unsubscribe()
+    this.guardarTiempo()
+    this.guardarDatos()
+  }
+
+  guardarTiempo(){
+    
+    const tiempoMs = this.tiempoRestante() * 1000; //lo convertimos a milisegundos pq los date usa milisegundos
+    const fecha = new Date(tiempoMs);// nos devuelve un objeto de tipo Date ej:(00:00:00)
+    //toISOSstring nos devuele un formato de tipo string: 1970-01-01T00:00:45.000Z
+    //substruing nos trae los caracteres desde la psocion 14 a 18
+    this.tiempoFinal = fecha.toISOString().substring(14, 19); // "mm:ss"
+    console.log(this.tiempoFinal)
   }
 
   agregarCartas(listaUrl:string[]):imagen[]{
@@ -144,16 +175,21 @@ export class MayorMenorComponent implements OnInit {
     if(this.vueltas == 10 && this.aciertos > this.errados){
 
       this.partidaGanada = true
+      this.terminarTemporizador()
+      
 
     }else if(this.vueltas == 10 && this.errados > this.aciertos){
-      this.partidaPerdida = true
 
+      this.partidaPerdida = true
+      this.terminarTemporizador()
+      
     }
   }
 
   reiniciar(){
 
     this.terminarTemporizador()
+
     this.contador = 60
     this.aciertos = 0
     this.errados = 0
@@ -161,5 +197,17 @@ export class MayorMenorComponent implements OnInit {
     this.partidaGanada = false
     this.partidaPerdida = false
     this.ngOnInit()
+  }
+
+  guardarDatos(){
+
+    if(this.partidaGanada){
+      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Perdida")
+    }else{
+      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Perdida")
+    }
+    
+
+    this.dbMayorMenor.guardarDatosUsuario(this.usuario)
   }
 }
