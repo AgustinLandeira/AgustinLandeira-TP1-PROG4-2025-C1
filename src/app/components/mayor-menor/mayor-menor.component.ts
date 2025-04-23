@@ -19,6 +19,7 @@ export class MayorMenorComponent implements OnInit {
 
   //usuarioahorcado
   usuario ?: UsuarioMayorMenor
+  existe: boolean | null = null
 
   //servicos
   user = inject(AuthService)
@@ -78,9 +79,11 @@ export class MayorMenorComponent implements OnInit {
       this.tiempoRestante.set(this.contador)
       
       if(this.tiempoRestante() <= 0){
+       
 
-        this.terminarTemporizador()
         this.partidaPerdida = true
+        this.terminarTemporizador()
+        this.guardarDatos()
         
       }
     })
@@ -90,7 +93,7 @@ export class MayorMenorComponent implements OnInit {
 
     this.temporizador.unsubscribe()
     this.guardarTiempo()
-    this.guardarDatos()
+    
   }
 
   guardarTiempo(){
@@ -129,7 +132,7 @@ export class MayorMenorComponent implements OnInit {
     
     const proximaCarta = listaCartas[Math.floor(Math.random() * listaCartas.length)]
     
-    console.log(proximaCarta)
+    
 
     return proximaCarta
   }
@@ -176,12 +179,13 @@ export class MayorMenorComponent implements OnInit {
 
       this.partidaGanada = true
       this.terminarTemporizador()
-      
+      this.guardarDatos()
 
     }else if(this.vueltas == 10 && this.errados > this.aciertos){
 
       this.partidaPerdida = true
       this.terminarTemporizador()
+      this.guardarDatos()
       
     }
   }
@@ -202,12 +206,41 @@ export class MayorMenorComponent implements OnInit {
   guardarDatos(){
 
     if(this.partidaGanada){
+      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Ganada")
+      //this.verificarUsuario(this.usuario.usuario)
+      this.subirDatos()
+
+    }else if(this.partidaPerdida){
       this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Perdida")
-    }else{
-      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Perdida")
+      //this.verificarUsuario(this.usuario.usuario)
+      this.subirDatos()
     }
     
+    
+  }
 
-    this.dbMayorMenor.guardarDatosUsuario(this.usuario)
+  // verificarUsuario(nombre:string){
+
+  //   // this.dbMayorMenor.verificarUsuarioExistente(nombre)
+    
+  // }
+
+  subirDatos(){
+
+    if(this.usuario)this.dbMayorMenor.subirNuevosDatos(this.usuario)
+    
+    // if(this.usuario && this.dbMayorMenor.existe()){
+
+    //   console.log("entramos")
+    //   if(this.dbMayorMenor.existe() == true){
+        
+    //     this.dbMayorMenor.actualizarDatosJugador(this.usuario)
+    //   }else{
+        
+    //     this.dbMayorMenor.subirNuevosDatos(this.usuario)
+    //   }
+
+    // }else{console.log("no existe")}
+
   }
 }

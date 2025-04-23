@@ -22,35 +22,35 @@ export class AuthService {
 
       //detecta cuando se inicia o cierra la sesion
       //recibe un callback(event,sesion)
-    this.suparbase.auth.onAuthStateChange((event,sesion)=>{
-      console.log(event)
-      switch(event){
+    // this.suparbase.auth.onAuthStateChange((event,sesion)=>{
+    //   console.log(event)
+    //   switch(event){
 
-        case "SIGNED_IN":
-          console.log("abriste sesion")
-          break;
-        case "SIGNED_OUT"  : 
-          console.log("cerraste sesion")
-          break;
-        case "INITIAL_SESSION":
-          console.log("no pasa nada");
-          break;
+    //     case "SIGNED_IN":
+    //       console.log("abriste sesion")
+    //       break;
+    //     case "SIGNED_OUT"  : 
+    //       console.log("cerraste sesion")
+    //       break;
+    //     case "INITIAL_SESSION":
+    //       console.log("no pasa nada");
+    //       break;
         
         
-      }
-      if(sesion == null){
-        // console.log(event)
-        // console.log("NO HAY SESION")
-        return ;
-      }
+    //   }
+    //   if(sesion == null){
+    //     // console.log(event)
+    //     // console.log("NO HAY SESION")
+    //     return ;
+    //   }
       
-      console.log(event)
-      this.suparbase.auth.getUser().then(({data,error})=>{
+    //   console.log(event)
+    //   this.suparbase.auth.getUser().then(({data,error})=>{
 
-        console.log(data.user)
-        console.log(error)
-      })
-    })
+    //     console.log(data.user)
+    //     console.log(error)
+    //   })
+    // })
   }
 
   async crearCuenta(email:string,contraseña:string){

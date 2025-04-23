@@ -10,29 +10,45 @@
             </p>
 
             <div class="about-content">
-            <div class="profile-image">
-                <img [src]="miGithub.resultado().avatar_url" alt="Profile" />
-            </div>
-            <div class="about-text">
-                <h2>Hola!! soy <span>{{miGithub.resultado().name}}</span></h2>
-                <p>
-                    Estoy en la búsqueda de un trabajo que me permita poner en practica los conocimientos adquiridos y aprender en un entorno de trabajo, 
-                    tengo conocimiento en lenguajes de programación tales como Python, C#,Typescript,javascript y Php,Frameworks como Angular y NodeJs. 
-                    Además tengo conocimiento en motores de base de datos como MySql y SqlServer,SQLITE y por ultimo entornos de trabajo tales como visual studio code 
-                    y visual studio.
-                </p>
+                <div class="profile-image">
+                    <img [src]="miGithub.resultado().avatar_url" alt="Profile" />
+                </div>
+                <div class="about-text">
+                    <h2>Hola!! soy <span>{{miGithub.resultado().name}}</span></h2>
+                    <p>
+                        Estoy en la búsqueda de un trabajo que me permita poner en practica los conocimientos adquiridos y aprender en un entorno de trabajo, 
+                        tengo conocimiento en lenguajes de programación tales como Python, C#,Typescript,javascript y Php,Frameworks como Angular y NodeJs. 
+                        Además tengo conocimiento en motores de base de datos como MySql y SqlServer,SQLITE y por ultimo entornos de trabajo tales como visual studio code 
+                        y visual studio.
+                    </p>
 
-                <ul>
-                    <li><strong>Nombre :</strong> {{miGithub.resultado().name}}</li>
-                    <li><strong>Edad :</strong> 21</li>
-                    <li><strong>celular :</strong> 1121730039</li>
-                    <li><strong>Mail :</strong> landeira2017&#64;gmail.com</li>
-                    <li><strong>Ubicacion :</strong> {{miGithub.resultado().location}}</li>
-                    <li><strong>Github :</strong> <a [href]="miGithub.resultado().html_url" target="_blank"> Mi github</a></li>
-                </ul>
+                    <ul>
+                        <li><strong>Nombre :</strong> {{miGithub.resultado().name}}</li>
+                        <li><strong>Edad :</strong> 21</li>
+                        <li><strong>celular :</strong> 1121730039</li>
+                        <li><strong>Mail :</strong> landeira2017&#64;gmail.com</li>
+                        <li><strong>Ubicacion :</strong> {{miGithub.resultado().location}}</li>
+                        <li><strong>Github :</strong> <a [href]="miGithub.resultado().html_url" target="_blank"> Mi github</a></li>
+                    </ul>
+                </div>
+               
             </div>
+            <div class="game-explanation">
+                <h2 class="game-title">Explicacion de mi juego propio</h2>
+                <p>
+                    Este juego consiste en adivinar el nombre de <strong>10 canciones</strong>.
+                    Vas a tener <strong>15 segundos</strong> para escuchar y escribir el nombre de cada una.El genero de las canciones no
+                    va a consistir en uno solo,va a ser variado como pop,rock and roll y entre otros generos que existen.
+                </p>
+                <p>
+                    Si acertas, ganaras <strong>2 puntos</strong>. Si te equivocas, perderas <strong>1 punto</strong>.Ademas
+                    podras perder puntos si no logras responder antes de que se termine el tiempo,asi que se rapido!!!!!.
+                    
+                </p>
             </div>
         </div>
+
+        
     </div>
 
 

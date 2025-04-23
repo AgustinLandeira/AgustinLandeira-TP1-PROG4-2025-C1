@@ -18,6 +18,7 @@ export class BienvenidaComponent {
   urlAhorcado:string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//ahorcado2.jpg" ;
   urlPreguntados: string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//quiz-time.jpg";
   urlMayorMenor :string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//mayor-menor.png";
+  urlMusica : string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//music.jpg";
 
   constructor(){}
 

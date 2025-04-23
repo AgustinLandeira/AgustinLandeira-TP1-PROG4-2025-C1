@@ -113,4 +113,29 @@ li a:hover {
     color: #FF6600;
     text-shadow: 0 0 5px rgba(255, 165, 0, 0.7);
 }
-  
+
+.game-explanation {
+    margin-top: 40px;
+    text-align: center;
+    background-color: #fff8e1;
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #ffcc80;
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.2);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-title {
+    font-size: 22px;
+    color: #ff6600;
+    margin-bottom: 15px;
+}
+
+.game-explanation p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+
