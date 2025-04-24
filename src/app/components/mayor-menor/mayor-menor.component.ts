@@ -207,40 +207,40 @@ export class MayorMenorComponent implements OnInit {
 
     if(this.partidaGanada){
       this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Ganada")
-      //this.verificarUsuario(this.usuario.usuario)
-      this.subirDatos()
+      this.verificarUsuario(this.usuario)
+      //this.subirDatos()
 
     }else if(this.partidaPerdida){
       this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Perdida")
-      //this.verificarUsuario(this.usuario.usuario)
-      this.subirDatos()
+      this.verificarUsuario(this.usuario)
+      //this.subirDatos()
     }
     
     
   }
 
-  // verificarUsuario(nombre:string){
+  verificarUsuario(usuario:UsuarioMayorMenor){
 
-  //   // this.dbMayorMenor.verificarUsuarioExistente(nombre)
+    this.dbMayorMenor.verificarUsuarioExistente(usuario)
     
-  // }
-
-  subirDatos(){
-
-    if(this.usuario)this.dbMayorMenor.subirNuevosDatos(this.usuario)
-    
-    // if(this.usuario && this.dbMayorMenor.existe()){
-
-    //   console.log("entramos")
-    //   if(this.dbMayorMenor.existe() == true){
-        
-    //     this.dbMayorMenor.actualizarDatosJugador(this.usuario)
-    //   }else{
-        
-    //     this.dbMayorMenor.subirNuevosDatos(this.usuario)
-    //   }
-
-    // }else{console.log("no existe")}
-
   }
+
+  // subirDatos(){
+
+  //   if(this.usuario)this.dbMayorMenor.subirNuevosDatos(this.usuario)
+    
+  //   // if(this.usuario && this.dbMayorMenor.existe()){
+
+  //   //   console.log("entramos")
+  //   //   if(this.dbMayorMenor.existe() == true){
+        
+  //   //     this.dbMayorMenor.actualizarDatosJugador(this.usuario)
+  //   //   }else{
+        
+  //   //     this.dbMayorMenor.subirNuevosDatos(this.usuario)
+  //   //   }
+
+  //   // }else{console.log("no existe")}
+
+  // }
 }
