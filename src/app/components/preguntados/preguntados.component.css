@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:host {
+    display: block;
+    background: #1f1f1f;
+    color: white;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* NAVBAR */
+.navbar {
+    background: black;
+    color: orange;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+}
+
+.navbar p{
+    color: #ff9900;
+}
+.game-title { font-family: 'Press Start 2P', cursive; font-size: 28px; }
+
+.game-subtitle {
+    font-size: 26px;
+    color: orange;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+
+
+.nav-actions .nav-button {
+    background: orange;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    font-family: 'Press Start 2p',cursive;
+}
+
+.nav-button:hover {
+    background: #ff9900;
+    transform: scale(1.05);
+}
+
+.game-container {
+    text-align: center;
+    padding: 30px;
+}
+
+.game-image {
+    width: 200px;
+    height: auto;
+    margin: 20px auto;
+    border: 3px solid orange;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.option-button {
+    background-color: #333;
+    color: white;
+    padding: 12px;
+    border: 2px solid orange;
+    border-radius: 8px;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option-button:hover {
+    background-color: orange;
+    color: black;
+    transform: scale(1.05);
+}
+
+.resultados {
+    margin-top: 30px;
+    font-size: 18px;
+    color: orange;
+}

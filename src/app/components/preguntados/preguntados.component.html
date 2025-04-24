@@ -1,1 +1,33 @@
-<p>preguntados works!</p>
+<nav class="navbar">
+    <h1 class="game-title">Mayor o menor</h1>
+    <!-- <p class="timer">⏳ Tiempo restante: {{ tiempoRestante() * 1000 | date:'mm:ss' }}</p> -->
+    <div class="nav-actions">
+        <button class="nav-button" (click)="reiniciar()">Reiniciar</button>
+        <button class="nav-button" routerLink="/bienvenida">Salir</button>
+    </div>
+</nav>
+
+<div class="game-container">
+
+    <h2 class="game-subtitle">¿Qué país es este?</h2>
+  
+    <!-- Imagen de la bandera o mapa -->
+    @if(paisActual()){
+        <img [src]="paisActual()?.imagen" alt="Bandera o país" class="game-image">
+    }
+    
+  
+    <!-- Opciones -->
+    <div class="options">
+        @for(opcion of listaOpciones; track $index ){
+
+            <button class="option-button" (click)="compararRespuesta(opcion)">{{opcion}}</button>
+        }
+    </div>
+  
+    <!-- Resultado parcial -->
+    <div class="resultados">
+      ✅ Correctas: {{ correctas }} | ❌ Incorrectas: {{ incorrectas }}
+    </div>
+  
+  </div>
