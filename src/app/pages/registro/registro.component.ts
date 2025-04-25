@@ -42,7 +42,7 @@ export class RegistroComponent implements OnInit{
       //creamos un controlador con dos parametros:valor inicial y array de validadores
       nombre: new FormControl("",[Validators.minLength(4),Validators.required,Validators.maxLength(9)]),
       apellido : new FormControl("",[Validators.minLength(5),Validators.required,Validators.maxLength(12)]),
-      edad : new FormControl("",[Validators.required,Validators.pattern("^[1-9]+$")]),
+      edad : new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$")]),
       mail : new FormControl("",[Validators.required,Validators.email,Validators.minLength(6),Validators.maxLength(20)]),
       contra : new FormControl("",[Validators.minLength(6),Validators.required,Validators.maxLength(12)])
     })
