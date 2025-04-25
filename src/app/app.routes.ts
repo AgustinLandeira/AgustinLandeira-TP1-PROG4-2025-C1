@@ -8,6 +8,8 @@ import { PreguntadosComponent } from './components/preguntados/preguntados.compo
 import { MayorMenorComponent } from './components/mayor-menor/mayor-menor.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { authGuard } from './guards/auth.guard';
+import { LoginComponent } from './pages/login/login.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 export const routes: Routes = [
     
@@ -16,12 +18,15 @@ export const routes: Routes = [
         //component:LoginComponent,nos trae el login de forma perezosa
         loadComponent: ()=> import("./pages/login/login.component").then((modulo)=>modulo.LoginComponent),
     
-
     },
     {
         "path": "registro",
         //component:RegistroComponent
         loadComponent: () => import("./pages/registro/registro.component").then((modulo)=>modulo.RegistroComponent)
+    },
+    {
+        "path":"chat",
+        component:ChatComponent
     },
     {
         "path": "bienvenida",

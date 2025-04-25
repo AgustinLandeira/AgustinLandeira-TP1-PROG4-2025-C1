@@ -21,7 +21,7 @@ export class MayorMenorScoreService {
   }
 
   async verificarUsuarioExistente(usuario:UsuarioMayorMenor){
-    console.log("comienzo:")
+    
     console.log(this.existe)
     const {data,error} = await this.tablaCartasScore.select('*')
 
@@ -34,7 +34,7 @@ export class MayorMenorScoreService {
       
       for(let fila of data){
 
-        if(fila.usuario == usuario.usuario){
+        if(fila.usuario === usuario.usuario){
 
           this.existe = true
           this.actualizarDatos(usuario,fila.id)

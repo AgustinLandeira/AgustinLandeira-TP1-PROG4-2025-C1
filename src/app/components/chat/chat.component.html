@@ -1,0 +1,18 @@
+<div class="chat-container">
+    <div class="mensajes">
+        @for(mensaje of listaMensaje();track $index){
+            <div [ngClass]="{ 'propio': mensaje.usuario === usuarioActual, 'otro': mensaje.usuario !== usuarioActual }">
+                <strong>{{ mensaje.usuario }}:</strong>
+                <span>{{ mensaje.mensaje }}</span>
+                <!-- <small>{{ mensaje.fecha | date:'shortTime' }}</small> -->
+            </div>
+        }
+
+    </div>
+  
+    <div class="entrada">
+        <input [(ngModel)]="nuevoMensaje" (keyup.enter)="enviar()" placeholder="Escribí tu mensaje..." />
+        <button (click)="enviar()">Enviar</button>
+    </div>
+</div>
+  
