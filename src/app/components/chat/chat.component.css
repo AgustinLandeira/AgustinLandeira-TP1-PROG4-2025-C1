@@ -1,34 +1,114 @@
+:host{
+    background-color: black
+}
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    border: 1px solid #ccc;
-    padding: 8px;
+display: flex;
+flex-direction: column;
+height: 700px;
+border: 2px solid orange;
+border-radius: 10px;
+padding: 10px;
+background-color: black; /* fondo suave */
+position: relative;
 }
 
+/* Mensajes */
 .mensajes {
     flex: 1;
     overflow-y: auto;
-}
-
-.mensajes div {
-    margin-bottom: 8px;
-    padding: 4px;
-    border-radius: 4px;
-}
-
-.propio {
-    background-color: #dcf8c6;
-    text-align: right;
-}
-
-.otro {
-    background-color: #f1f0f0;
-}
-
-.entrada {
+    margin-bottom: 10px;
+    padding-right: 10px;
     display: flex;
-    gap: 8px;
-    margin-top: 8px;
+    flex-direction: column;
+    gap: 10px;
+    
+  }
+  
+.mensajes div {
+    padding: 10px 14px;
+    border-radius: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'Press Start 2P', cursive;
 }
   
+  /* Alineación según tipo */
+.propio {
+    align-self: flex-end;
+    background-color: #ffb84d;
+}
+  
+.otro {
+    align-self: flex-start;
+    background-color: #ffe0b3;
+}
+
+/* Texto del mensaje */
+.mensajes strong {
+    display: block;
+    font-weight: bold;
+    color: #cc6600;
+    margin-bottom: 2px;
+}
+
+.mensajes span {
+    display: block;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.mensajes small {
+    font-size: 0.75rem;
+    color: #999;
+}
+
+/* Entrada de texto */
+.entrada {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.entrada input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ffa64d;
+    border-radius: 6px;
+    outline: none;
+}
+
+.entrada button {
+    background-color: #ff9900;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.entrada button:hover {
+background-color: #e67300;
+}
+
+/* Botón salir */
+.salir-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.salir-btn:hover {
+background-color: #cc0000;
+}
+

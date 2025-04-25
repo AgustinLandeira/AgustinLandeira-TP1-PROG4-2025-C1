@@ -1,10 +1,9 @@
+import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { inject } from '@angular/core';
-import { routes } from '../app.routes';
 
-export const authGuard: CanActivateFn = async  (route, state) => {
-
+export const juegosGuard: CanActivateFn = async (route, state) => {
+  
   const authService = inject(AuthService);
   const router = inject(Router);
 
@@ -12,14 +11,12 @@ export const authGuard: CanActivateFn = async  (route, state) => {
 
   if (data.session) {
     // Ya hay una sesión iniciada
-    console.log("Ya estás logueado. Redirigiendo...");
-    router.navigate(["/bienvenida"]);
-    return false;
+    console.log("Ya estás logueado. jsugando...");
+    
+    return true;
   }
-
+  router.navigate(["/bienvenida"]);
   // No hay sesión
   console.log("No hay sesión, dejo pasar");
-  return true;
-
-  
+  return false;
 };

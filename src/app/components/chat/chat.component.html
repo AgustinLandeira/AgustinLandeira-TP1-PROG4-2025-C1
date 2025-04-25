@@ -1,13 +1,13 @@
 <div class="chat-container">
-    <div class="mensajes">
+    <div class="mensajes" >
         @for(mensaje of listaMensaje();track $index){
             <div [ngClass]="{ 'propio': mensaje.usuario === usuarioActual, 'otro': mensaje.usuario !== usuarioActual }">
-                <strong>{{ mensaje.usuario }}:</strong>
+                <strong>{{ mensaje.usuario }}</strong>
                 <span>{{ mensaje.mensaje }}</span>
-                <!-- <small>{{ mensaje.fecha | date:'shortTime' }}</small> -->
+                <small>{{ mensaje.fecha | date:'shortTime' }}</small>
             </div>
         }
-
+        <div #ultimoMensaje></div>
     </div>
   
     <div class="entrada">
@@ -15,4 +15,5 @@
         <button (click)="enviar()">Enviar</button>
     </div>
 </div>
+<button class="salir-btn" routerLink="/bienvenida">Salir</button>
   

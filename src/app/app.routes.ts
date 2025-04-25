@@ -10,6 +10,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { authGuard } from './guards/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { juegosGuard } from './guards/juegos.guard';
 
 export const routes: Routes = [
     
@@ -17,20 +18,24 @@ export const routes: Routes = [
         "path": "login",
         //component:LoginComponent,nos trae el login de forma perezosa
         loadComponent: ()=> import("./pages/login/login.component").then((modulo)=>modulo.LoginComponent),
+        canActivate: [authGuard]
     
     },
     {
         "path": "registro",
         //component:RegistroComponent
-        loadComponent: () => import("./pages/registro/registro.component").then((modulo)=>modulo.RegistroComponent)
+        loadComponent: () => import("./pages/registro/registro.component").then((modulo)=>modulo.RegistroComponent),
+        canActivate: [authGuard]
     },
     {
         "path":"chat",
-        component:ChatComponent
+        component:ChatComponent,
+        canActivate: [authGuard]
     },
     {
         "path": "bienvenida",
-        component:BienvenidaComponent
+        component:BienvenidaComponent,
+        
     },
     {
         "path":"sobre-mi",
@@ -38,17 +43,20 @@ export const routes: Routes = [
     },
     {
         "path":"ahorcado",
-        component:AhorcadoComponent
+        component:AhorcadoComponent,
+        canActivate: [juegosGuard]
 
     },
     {
         "path":"preguntados",
-        component:PreguntadosComponent
+        component:PreguntadosComponent,
+        canActivate: [juegosGuard]
 
     },
     {
         "path":"mayor-menor",
-        component:MayorMenorComponent
+        component:MayorMenorComponent,
+        canActivate: [juegosGuard]
 
     },
     {

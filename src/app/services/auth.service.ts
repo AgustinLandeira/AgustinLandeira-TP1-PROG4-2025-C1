@@ -11,7 +11,7 @@ export class AuthService {
   suparbase : SupabaseClient<any, "public", any>
 
   registrado = signal<any | null>(null)
-  sesionEncontrada = signal<any | null>(null)
+  sesionEncontrada = signal<boolean | null>(null)
   nombreLogueado = signal<any  | null>(null)
 
   obj ?: any
@@ -22,35 +22,25 @@ export class AuthService {
 
       //detecta cuando se inicia o cierra la sesion
       //recibe un callback(event,sesion)
-    // this.suparbase.auth.onAuthStateChange((event,sesion)=>{
-    //   console.log(event)
-    //   switch(event){
-
-    //     case "SIGNED_IN":
-    //       console.log("abriste sesion")
-    //       break;
-    //     case "SIGNED_OUT"  : 
-    //       console.log("cerraste sesion")
-    //       break;
-    //     case "INITIAL_SESSION":
-    //       console.log("no pasa nada");
-    //       break;
+      this.suparbase.auth.onAuthStateChange((event, session) => {
+        if (session === null) {
+          console.log("cierro sesion")
+          //this.sesionEncontrada.set(false)
+          this.nombreLogueado.set(null)
+          // this.nombreLogueado.set(null);
+          // this.router.navigateByUrl("/login");
+          return;
+        }
         
-        
-    //   }
-    //   if(sesion == null){
-    //     // console.log(event)
-    //     // console.log("NO HAY SESION")
-    //     return ;
-    //   }
-      
-    //   console.log(event)
-    //   this.suparbase.auth.getUser().then(({data,error})=>{
-
-    //     console.log(data.user)
-    //     console.log(error)
-    //   })
-    // })
+        this.suparbase.auth.getUser().then(({ data, error }) => {
+          // this.user.set(data.user);
+          // this.router.navigateByUrl("/");
+          console.log("HOLA")
+          this.buscarSesionIniciada(data.user?.email)
+          console.log(data.user)
+        });
+      });
+    
   }
 
   async crearCuenta(email:string,contraseña:string){
@@ -121,5 +111,48 @@ export class AuthService {
     }
   }
 
+  async buscarSesionIniciada(mail:string | undefined){
+
+    const {data,error} = await this.suparbase.from("usuarios").select("nombre").eq("mail",mail)
+
+    
+    if (data && data.length > 0) {
+      const nombre = data[0].nombre;
+      
+      this.nombreLogueado.set(nombre)
+      //this.sesionEncontrada.set(true)
+
+    }
+  }
+
  
 }
+// this.suparbase.auth.onAuthStateChange((event,sesion)=>{
+    //   console.log(event)
+    //   switch(event){
+
+    //     case "SIGNED_IN":
+    //       console.log("abriste sesion")
+    //       break;
+    //     case "SIGNED_OUT"  : 
+    //       console.log("cerraste sesion")
+    //       break;
+    //     case "INITIAL_SESSION":
+    //       console.log("no pasa nada");
+    //       break;
+        
+        
+    //   }
+    //   if(sesion == null){
+    //     // console.log(event)
+    //     // console.log("NO HAY SESION")
+    //     return ;
+    //   }
+      
+    //   console.log(event)
+    //   this.suparbase.auth.getUser().then(({data,error})=>{
+
+    //     console.log(data.user)
+    //     console.log(error)
+    //   })
+    // })
