@@ -12,6 +12,7 @@ export const juegosGuard: CanActivateFn = async (route, state) => {
   if (data.session) {
     // Ya hay una sesión iniciada
     console.log("Ya estás logueado. jsugando...");
+    console.log(data.session)
     
     return true;
   }

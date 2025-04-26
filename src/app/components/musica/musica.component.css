@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:host {
+    display: block;
+    background: #1f1f1f;
+    color: white;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* NAVBAR */
+.navbar {
+    background: black;
+    color: orange;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+}
+
+.navbar p{
+    color: #ff9900;
+}
+.game-title { font-family: 'Press Start 2P', cursive; font-size: 28px; }
+
+.game-subtitle {
+    font-size: 26px;
+    color: orange;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+
+
+.nav-actions .nav-button {
+    background: orange;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    font-family: 'Press Start 2p',cursive;
+}
+
+.nav-button:hover {
+    background: #ff9900;
+    transform: scale(1.05);
+}
+
+/* MAIN GAME CONTAINER */
+.music-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+/* MUSIC CONTROLS */
+.music-controls {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.music-button {
+    background-color: orange;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.music-button:hover {
+    background-color: #ff9900;
+    transform: scale(1.05);
+}
+
+/* GUESS SECTION */
+.guess-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.guess-input {
+    width: 280px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 2px solid orange;
+    background: #2c2c2c;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+}
+
+.guess-input::placeholder {
+    color: #ccc;
+}
+
+.guess-button {
+    background-color: orange;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.guess-button:hover {
+    background-color: #ff9900;
+    transform: scale(1.05);
+}
+
+/* SCORE SECTION */
+.score-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.score-section p {
+    font-size: 16px;
+    margin: 8px 0;
+    color: orange;
+}
+
+/* MUSIC LOGO */
+.music-logo-container {
+    margin: 20px 0;
+}
+
+.music-logo {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* ANIMACIÓN CUANDO SUENA LA MÚSICA */
+.music-logo.playing {
+    animation: vibrar 0.8s infinite;
+}
+
+@keyframes vibrar {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.05) rotate(2deg); }
+    50% { transform: scale(1) rotate(0deg); }
+    75% { transform: scale(1.05) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+

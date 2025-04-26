@@ -11,6 +11,7 @@ import { authGuard } from './guards/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { juegosGuard } from './guards/juegos.guard';
+import { MusicaComponent } from './components/musica/musica.component';
 
 export const routes: Routes = [
     
@@ -43,21 +44,25 @@ export const routes: Routes = [
     },
     {
         "path":"ahorcado",
-        component:AhorcadoComponent,
-        canActivate: [juegosGuard]
+        canActivate: [juegosGuard],
+        loadComponent: () => import("./components/ahorcado/ahorcado.component").then((modulo)=>modulo.AhorcadoComponent)
 
     },
     {
         "path":"preguntados",
-        component:PreguntadosComponent,
-        canActivate: [juegosGuard]
+        canActivate: [juegosGuard],
+        loadComponent: ()=> import("./components/preguntados/preguntados.component").then((modulo)=>modulo.PreguntadosComponent)
 
     },
     {
         "path":"mayor-menor",
-        component:MayorMenorComponent,
-        canActivate: [juegosGuard]
+        canActivate: [juegosGuard],
+        loadComponent: () => import("./components/mayor-menor/mayor-menor.component").then((modulo)=>modulo.MayorMenorComponent)
 
+    },
+    {
+        "path":"musica",
+        component:MusicaComponent
     },
     {
         "path":"error",

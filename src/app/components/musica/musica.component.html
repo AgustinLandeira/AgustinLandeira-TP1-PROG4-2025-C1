@@ -1,0 +1,35 @@
+<nav class="navbar">
+    <h1 class="game-title">Mayor o menor</h1>
+    <!-- <p class="timer">⏳ Tiempo restante: {{ tiempoRestante() * 1000 | date:'mm:ss' }}</p> -->
+    <div class="nav-actions">
+      <button class="nav-button" (click)="reiniciar()">Reiniciar</button>
+      <button class="nav-button" routerLink="/bienvenida">Salir</button>
+    </div>
+</nav>
+
+<main class="music-game-container">
+
+    <h2 class="game-subtitle">🎵 Adivina la Canción 🎵</h2>
+
+    <div class="music-logo-container">
+        <img [src]="gifMusica" alt="Logo Musical" class="music-logo" [class.playing]="musicaSonando">
+    </div>
+  
+    <div class="music-controls">
+        <audio #audioPlayer [src]="this.musicaActual?.url"></audio>
+        <button class="music-button" (click)="ponerMusica(audioPlayer)">▶️ Play</button>
+        <button class="music-button" (click)="pausarMusica()">⏸️ Pausar</button>
+    </div>
+  
+    <div class="guess-section">
+        <input type="text" placeholder="¿Qué canción suena?" [(ngModel)]="respuestaUsuario" class="guess-input">
+        <button class="guess-button" (click)="verificarRespuesta()">Enviar</button>
+    </div>
+  
+    <div class="score-section">
+        <p>✅ Correctas: {{ correctas }}</p>
+        <p>❌ Incorrectas: {{ incorrectas }}</p>
+    </div>
+  
+</main>
+  
