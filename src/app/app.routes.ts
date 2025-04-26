@@ -30,7 +30,7 @@ export const routes: Routes = [
     {
         "path":"chat",
         component:ChatComponent,
-        canActivate: [authGuard]
+        canActivate: [juegosGuard]
     },
     {
         "path": "bienvenida",

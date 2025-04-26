@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { imagen } from '../../interfaz/imagen';
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { UsuarioMayorMenor } from '../../class/ahorcadoUsuario';
+import { UsuarioMayorMenor } from '../../class/mayorMenorUsuario';
 import { AuthService } from '../../services/auth.service';
 import { AhorcadoComponent } from '../ahorcado/ahorcado.component';
 import { AhorcadoScoreService } from '../../services/juegos/ahorcado/ahorcado-score.service';

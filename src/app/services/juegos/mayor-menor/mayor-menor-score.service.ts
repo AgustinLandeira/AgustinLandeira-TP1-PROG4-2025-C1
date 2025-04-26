@@ -2,7 +2,7 @@ import { inject, Injectable, Signal, signal } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import {createClient, SupabaseClient} from '@supabase/supabase-js'
 import {PostgrestQueryBuilder} from  '@supabase/postgrest-js'
-import { UsuarioMayorMenor } from '../../../class/ahorcadoUsuario';
+import { UsuarioMayorMenor } from '../../../class/mayorMenorUsuario';
 import { Usuario } from '../../../class/usuario';
 
 

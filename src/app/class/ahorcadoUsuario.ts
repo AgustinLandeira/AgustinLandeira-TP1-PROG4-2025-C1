@@ -1,20 +1,19 @@
-import { Usuario } from "./usuario";
+export class UsuarioAhorcado{
 
-export class UsuarioMayorMenor {
-
-    usuario: string;
-    tiempo_finalizacion: string;
-    cartas_acertadas:number;
-    cartas_erradas:number;
+    usuario:string;
+    tiempoFinalizacion:string;
+    letrasAcertadas:number;
+    letrasFalladas:number;
+    letrasSeleccionadas:number;
     partida:string;
 
-    constructor(usuario:string,tiempo_finalizacion:string,cartas_acertadas: number,cartas_erradas:number,partida:string){
-
+    constructor(usuario:string,tiempo:string,acertadas:number,erradas:number,totalLetras:number,resultado:string){
         this.usuario = usuario
-        this.tiempo_finalizacion = tiempo_finalizacion
-        this.cartas_acertadas = cartas_acertadas
-        this.cartas_erradas = cartas_erradas
-        this.partida = partida
+        this.tiempoFinalizacion = tiempo
+        this.letrasAcertadas = acertadas
+        this.letrasFalladas = erradas
+        this.letrasSeleccionadas = totalLetras
+        this.partida = resultado
     }
 
 }

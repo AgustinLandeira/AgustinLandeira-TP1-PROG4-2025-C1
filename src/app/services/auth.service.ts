@@ -24,7 +24,7 @@ export class AuthService {
       //recibe un callback(event,sesion)
       this.suparbase.auth.onAuthStateChange((event, session) => {
         if (session === null) {
-          console.log("cierro sesion")
+          
           //this.sesionEncontrada.set(false)
           this.nombreLogueado.set(null)
           // this.nombreLogueado.set(null);
@@ -35,9 +35,9 @@ export class AuthService {
         this.suparbase.auth.getUser().then(({ data, error }) => {
           // this.user.set(data.user);
           // this.router.navigateByUrl("/");
-          console.log("HOLA")
+          
           this.buscarSesionIniciada(data.user?.email)
-          console.log(data.user)
+          
         });
       });
     
@@ -52,7 +52,7 @@ export class AuthService {
     })
 
     if(!error){
-      console.log("paso")
+      
       this.registrado.set(true)
       
     }else{
@@ -77,8 +77,7 @@ export class AuthService {
     }else{
       this.sesionEncontrada.set(false)
     }
-    console.log(data)
-    console.log(error)
+    
     
   }
 
@@ -86,7 +85,7 @@ export class AuthService {
 
     const {error} = await this.suparbase.auth.signOut();
 
-    console.log(error)
+    
     if(!error){
       this.nombreLogueado.set("")
     }
@@ -105,7 +104,7 @@ export class AuthService {
       if(usuario.mail == mailLogueado){
 
         this.nombreLogueado.set(usuario.nombre)
-        console.log(this.nombreLogueado)
+        
         break
       }
     }

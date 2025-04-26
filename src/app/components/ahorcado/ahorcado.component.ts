@@ -1,8 +1,11 @@
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { UsuarioAhorcado } from '../../class/ahorcadoUsuario';
+import { AuthService } from '../../services/auth.service';
+import { AhorcadoScoreService } from '../../services/juegos/ahorcado/ahorcado-score.service';
 
 @Component({
   selector: 'app-ahorcado',
@@ -12,7 +15,14 @@ import { RouterLink } from '@angular/router';
 })
 export class AhorcadoComponent implements OnInit {
 
+  //servicios
+  authAhorcado = inject(AuthService)
+  ahorcadoScore = inject(AhorcadoScoreService)
+
+  usuario? : UsuarioAhorcado
+
   letras: string[] = 'abcdefghijklmnñopqrstuvwxyz'.split('');
+  letrasSeleccionadas = 0
   
   parteActual : string = "";
   partesAhorcado = [
@@ -31,15 +41,18 @@ export class AhorcadoComponent implements OnInit {
   palabraLetra : string[] = []
   palabraDesconocida: string = "";
   letrasUsadas : string[] = []
+  
 
   error : number = 0
+  aciertos = 0
 
   mostralModaVictoria:boolean = false
   mostrarModelDerrota:boolean = false
 
   temporizador!:Subscription
-  contador = 200
+  contador = 60
   tiempoRestante = signal<number> (this.contador); // 10 minutos
+  tiempoFinal:string = ""
   ngOnInit(): void {
     
     this.palabraElegida = this.elegirPalabra(this.palabras)//elegimos una palabra
@@ -65,8 +78,20 @@ export class AhorcadoComponent implements OnInit {
 
         this.detenerTemporizador()
         this.mostrarModelDerrota = true
+        this.guardarDatos()
       }
     })
+  }
+
+  guardarTemporizador(){
+
+    const tiempoMs = this.tiempoRestante() * 1000; //lo convertimos a milisegundos pq los date usa milisegundos
+    const fecha = new Date(tiempoMs);// nos devuelve un objeto de tipo Date ej:(00:00:00)
+    //toISOSstring nos devuele un formato de tipo string: 1970-01-01T00:00:45.000Z
+    //substruing nos trae los caracteres desde la psocion 14 a 18
+    this.tiempoFinal = fecha.toISOString().substring(14, 19); // "mm:ss"
+    console.log(this.tiempoFinal)
+
   }
   elegirPalabra(lista: string[]):string{
 
@@ -86,13 +111,13 @@ export class AhorcadoComponent implements OnInit {
   }
   compararLetra(letraElegida : string){
 
-    console.log(letraElegida)
+    this.letrasSeleccionadas += 1
     this.agregarLetraUsada(letraElegida)
 
     const indices :number[] = [];
 
     if(this.palabraLetra.includes(letraElegida)){
-
+      this.aciertos += 1
       let posicion = this.palabraLetra.indexOf(letraElegida)//busca la primera aparicion de la letra buscada
 
       //el while va a ejecutarse mientras siga encontrando la letra 
@@ -139,6 +164,7 @@ export class AhorcadoComponent implements OnInit {
 
       this.detenerTemporizador()
       this.mostralModaVictoria = true
+      this.guardarDatos()
 
     }
   }
@@ -146,26 +172,56 @@ export class AhorcadoComponent implements OnInit {
   verificarPartidaPerdida(){
     if(this.error == 5){
       this.detenerTemporizador()
-      this.mostrarModelDerrota = true 
+      this.mostrarModelDerrota = true
+      this.guardarDatos()
 
     }
   }
 
   detenerTemporizador(){
     this.temporizador?.unsubscribe()
+    this.guardarTemporizador()
   }
 
   reiniciarJuego(){
 
     this.temporizador?.unsubscribe()
-    this.contador = 200
+    this.contador = 60
     this.tiempoRestante.set(this.contador)
     this.mostralModaVictoria = false
     this.mostrarModelDerrota = false
     this.palabraDesconocida = ""
     this.letrasUsadas = []
     this.error = 0
+    this.aciertos = 0
+    this.letrasSeleccionadas = 0
     this.ngOnInit()
 
+  }
+
+  async guardarDatos(){
+
+    if(this.mostralModaVictoria){
+
+      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado(),this.tiempoFinal,this.aciertos,this.error,
+      this.letrasSeleccionadas,"ganada")
+    }else{
+      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado(),this.tiempoFinal,this.aciertos,this.error,
+      this.letrasSeleccionadas,"perdida")
+    }
+    console.log(this.usuario)
+
+    const resultado = await this.ahorcadoScore.verUsuarioExistente(this.usuario)
+
+    console.log("EL resultado es: ")
+    console.log(resultado)
+
+    if(resultado){
+
+      console.log("actualizando......")
+      this.ahorcadoScore.actualizarDAtos(this.usuario)
+    }else{
+      console.log("se perdio")
+    }
   }
 }
