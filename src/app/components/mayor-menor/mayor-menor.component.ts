@@ -206,12 +206,12 @@ export class MayorMenorComponent implements OnInit {
   guardarDatos(){
 
     if(this.partidaGanada){
-      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Ganada")
+      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.errados,"Ganada")
       this.verificarUsuario(this.usuario)
       //this.subirDatos()
 
     }else if(this.partidaPerdida){
-      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado(),this.tiempoFinal,this.aciertos,this.errados,"Perdida")
+      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.errados,"Perdida")
       this.verificarUsuario(this.usuario)
       //this.subirDatos()
     }

@@ -107,6 +107,7 @@ export class MusicaComponent implements OnInit {
 
   verificarRespuesta(){
 
+    if(this.respuestaUsuario != "")return;
     if(this.musicaActual?.nombre.toLowerCase() == this.respuestaUsuario.toLowerCase()){
 
       this.correctas += 1

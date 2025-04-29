@@ -9,7 +9,7 @@
       <button class="nav-button" routerLink="/registro">Registro</button>
     }@else{
       <button class="nav-button" (click)="cerrarSesion()">cerrar Sesion</button>
-      <p class="user-info">Usuario: {{auth.nombreLogueado()}}</p>
+      <p class="user-info">Usuario: {{auth.nombreLogueado()?.usuario}}</p>
     }
     
   </div>

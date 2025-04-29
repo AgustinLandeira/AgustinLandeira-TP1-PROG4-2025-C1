@@ -2,5 +2,5 @@ export interface usuarioChat{
 
     mensaje:string,
     fecha:string,
-    usuario:string
+    usuario:string | null | undefined
 }

@@ -62,7 +62,7 @@ position: relative;
 
 .mensajes small {
     font-size: 0.75rem;
-    color: #999;
+    color: gray;
 }
 
 /* Entrada de texto */
@@ -111,4 +111,5 @@ background-color: #e67300;
 .salir-btn:hover {
 background-color: #cc0000;
 }
+
 

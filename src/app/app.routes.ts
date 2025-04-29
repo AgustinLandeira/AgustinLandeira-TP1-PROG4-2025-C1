@@ -63,7 +63,8 @@ export const routes: Routes = [
     },
     {
         "path":"musica",
-        component:MusicaComponent
+        canActivate:[juegosGuard],
+        loadComponent:() => import("./components/musica/musica.component").then((modulo)=>modulo.MusicaComponent)
     },
     {
         "path":"info-juegos",

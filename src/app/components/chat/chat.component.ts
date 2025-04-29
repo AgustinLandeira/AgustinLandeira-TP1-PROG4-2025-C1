@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit,AfterViewChecked  {
 
   //mensajes : usuarioChat[] | undefined = []
   listaMensaje = signal<usuarioChat[] | undefined>([])
-  usuarioActual : string = ""
+  usuarioActual : string | undefined | null = ""
   nuevoMensaje : string = ""
 
   //servicios
@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit,AfterViewChecked  {
   //recuperar los mensajes
   this.listaMensaje.set(await this.dbChat.traerMensaje())
   console.log(this.listaMensaje())
-  this.usuarioActual = this.auth.nombreLogueado()
+  this.usuarioActual = this.auth.nombreLogueado()?.usuario
 
   this.dbChat.canal.on("postgres_changes",{
       event: "*",
@@ -65,6 +65,7 @@ export class ChatComponent implements OnInit,AfterViewChecked  {
 
  enviar(){
 
+  if(this.nuevoMensaje == "")return ;
   const nuevoMensaje: usuarioChat = {
 
     mensaje:this.nuevoMensaje,

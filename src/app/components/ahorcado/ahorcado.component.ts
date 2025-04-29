@@ -203,10 +203,10 @@ export class AhorcadoComponent implements OnInit {
 
     if(this.mostralModaVictoria){
 
-      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado(),this.tiempoFinal,this.aciertos,this.error,
+      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.error,
       this.letrasSeleccionadas,"ganada")
     }else{
-      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado(),this.tiempoFinal,this.aciertos,this.error,
+      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.error,
       this.letrasSeleccionadas,"perdida")
     }
     console.log(this.usuario)

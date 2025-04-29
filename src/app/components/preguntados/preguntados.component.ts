@@ -115,6 +115,8 @@ export class PreguntadosComponent implements OnInit {
 
     seleccionados.push(paisActual)
     
+    seleccionados = seleccionados.sort(() => Math.random() - 0.5);
+
     return seleccionados
 
   }

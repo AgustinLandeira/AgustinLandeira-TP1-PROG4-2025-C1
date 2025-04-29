@@ -3,16 +3,27 @@ import { PostgrestQueryBuilder } from '@supabase/postgrest-js';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import Swal from "sweetalert2"
 
+interface usuarioInfo  {
+  usuario: null | string,
+  mail:null | string
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
+  
   suparbase : SupabaseClient<any, "public", any>
 
   registrado = signal<any | null>(null)
   sesionEncontrada = signal<boolean | null>(null)
-  nombreLogueado = signal<any  | null>(null)
+  infoLogeado:usuarioInfo = {
+    usuario:null, 
+    mail:null
+  }
+  nombreLogueado = signal<usuarioInfo  | null>(null)
 
   obj ?: any
   constructor() { 
@@ -87,7 +98,8 @@ export class AuthService {
 
     
     if(!error){
-      this.nombreLogueado.set("")
+      
+      this.nombreLogueado.set(null)
     }
   }
 
@@ -103,7 +115,10 @@ export class AuthService {
 
       if(usuario.mail == mailLogueado){
 
-        this.nombreLogueado.set(usuario.nombre)
+        this.infoLogeado.usuario = usuario.nombre
+        this.infoLogeado.mail = usuario.mail
+        console.log(this.infoLogeado)
+        this.nombreLogueado.set(this.infoLogeado)
         
         break
       }
@@ -112,46 +127,19 @@ export class AuthService {
 
   async buscarSesionIniciada(mail:string | undefined){
 
-    const {data,error} = await this.suparbase.from("usuarios").select("nombre").eq("mail",mail)
+    const {data,error} = await this.suparbase.from("usuarios").select("nombre,mail").eq("mail",mail)
 
-    
+    console.log(data)
     if (data && data.length > 0) {
       const nombre = data[0].nombre;
+      const mail = data[0].mail
       
-      this.nombreLogueado.set(nombre)
-      //this.sesionEncontrada.set(true)
-
+      this.infoLogeado.usuario = nombre
+      this.infoLogeado.mail = mail
+      this.nombreLogueado.set(this.infoLogeado)
+      
     }
   }
 
  
 }
-// this.suparbase.auth.onAuthStateChange((event,sesion)=>{
-    //   console.log(event)
-    //   switch(event){
-
-    //     case "SIGNED_IN":
-    //       console.log("abriste sesion")
-    //       break;
-    //     case "SIGNED_OUT"  : 
-    //       console.log("cerraste sesion")
-    //       break;
-    //     case "INITIAL_SESSION":
-    //       console.log("no pasa nada");
-    //       break;
-        
-        
-    //   }
-    //   if(sesion == null){
-    //     // console.log(event)
-    //     // console.log("NO HAY SESION")
-    //     return ;
-    //   }
-      
-    //   console.log(event)
-    //   this.suparbase.auth.getUser().then(({data,error})=>{
-
-    //     console.log(data.user)
-    //     console.log(error)
-    //   })
-    // })

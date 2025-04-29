@@ -42,7 +42,7 @@ export class RegistroComponent implements OnInit{
       //creamos un controlador con dos parametros:valor inicial y array de validadores
       nombre: new FormControl("",[Validators.minLength(4),Validators.required,Validators.maxLength(9)]),
       apellido : new FormControl("",[Validators.minLength(5),Validators.required,Validators.maxLength(12)]),
-      edad : new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$")]),
+      edad : new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$"),Validators.max(99),Validators.min(1)]),
       mail : new FormControl("",[Validators.required,Validators.email,Validators.minLength(6),Validators.maxLength(20)]),
       contra : new FormControl("",[Validators.minLength(6),Validators.required,Validators.maxLength(12)])
     })
@@ -51,6 +51,7 @@ export class RegistroComponent implements OnInit{
   //registramos el usuario a la bd
   async registrarUsuario(){
 
+    console.log(this.formGroup)
     if(this.formGroup?.invalid)return // si es invalido el formulario no seguimos
 
     //creamos una instancia de usuario para agregarlo a la bd
@@ -111,7 +112,7 @@ export class RegistroComponent implements OnInit{
       this.tipoError = `este campo tiene que tener un maximo de ${control.getError("maxlength").requiredLength} caracteres`
       this.error = true
 
-    }else if(control?.hasError("pattern") && control?.touched){
+    }else if((control?.hasError("pattern") || control?.hasError("max") || control?.hasError("min")) && control?.touched){
 
       this.tipoError = "la edad es invalida"
       this.error = true
