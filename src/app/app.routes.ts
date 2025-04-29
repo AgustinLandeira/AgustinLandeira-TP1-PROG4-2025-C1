@@ -12,6 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { juegosGuard } from './guards/juegos.guard';
 import { MusicaComponent } from './components/musica/musica.component';
+import { InfoJuegosComponent } from './pages/info-juegos/info-juegos.component';
 
 export const routes: Routes = [
     
@@ -63,6 +64,11 @@ export const routes: Routes = [
     {
         "path":"musica",
         component:MusicaComponent
+    },
+    {
+        "path":"info-juegos",
+        component:InfoJuegosComponent
+
     },
     {
         "path":"error",

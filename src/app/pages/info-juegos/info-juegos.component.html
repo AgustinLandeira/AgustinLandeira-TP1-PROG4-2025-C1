@@ -1,0 +1,13 @@
+<div class="info-container">
+    <h1>Información de los Juegos</h1>
+  
+    @for (juego of juegos; track $index) {
+        <section class="info-card">
+            <h2>{{ juego.nombre }}</h2>
+            <p>{{ juego.descripcion }}</p>
+            
+        </section>
+    }
+    <button class="go-button" routerLink="/bienvenida">Ir a los juegos</button>
+</div>
+  
