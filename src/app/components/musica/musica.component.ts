@@ -85,7 +85,7 @@ export class MusicaComponent implements OnInit {
   eliminarMusica(indiceAEliminar:number){
 
     this.listaMusica.splice(indiceAEliminar,1)
-    console.log(this.listaMusica)
+    
   }
 
   ponerMusica(audioPlayer: HTMLAudioElement){
@@ -107,7 +107,9 @@ export class MusicaComponent implements OnInit {
 
   verificarRespuesta(){
 
-    if(this.respuestaUsuario != "")return;
+    console.log("este:")
+    console.log(this.respuestaUsuario)
+    if(this.respuestaUsuario == "")return;
     if(this.musicaActual?.nombre.toLowerCase() == this.respuestaUsuario.toLowerCase()){
 
       this.correctas += 1
@@ -116,7 +118,7 @@ export class MusicaComponent implements OnInit {
     }
 
     this.eliminarMusica(this.indiceMusicaActual)
-    console.log(this.listaMusica.length)
+    
     if(this.listaMusica.length > 0){
       this.musicaActual = this.elegirMusica(this.listaMusica)
     }else{
