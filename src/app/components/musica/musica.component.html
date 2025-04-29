@@ -1,6 +1,6 @@
 <nav class="navbar">
     <h1 class="game-title">Mayor o menor</h1>
-    <!-- <p class="timer">⏳ Tiempo restante: {{ tiempoRestante() * 1000 | date:'mm:ss' }}</p> -->
+    <p class="timer">⏳ Tiempo restante: {{ tiempoRestante() * 1000 | date:'mm:ss' }}</p>
     <div class="nav-actions">
       <button class="nav-button" (click)="reiniciar()">Reiniciar</button>
       <button class="nav-button" routerLink="/bienvenida">Salir</button>
@@ -12,17 +12,16 @@
     <h2 class="game-subtitle">🎵 Adivina la Canción 🎵</h2>
 
     <div class="music-logo-container">
-        <img [src]="gifMusica" alt="Logo Musical" class="music-logo" [class.playing]="musicaSonando">
+        <img [src]="gifMusica" alt="Logo Musical" class="music-logo">
     </div>
   
     <div class="music-controls">
-        <audio #audioPlayer [src]="this.musicaActual?.url"></audio>
-        <button class="music-button" (click)="ponerMusica(audioPlayer)">▶️ Play</button>
-        <button class="music-button" (click)="pausarMusica()">⏸️ Pausar</button>
+        <audio #audioPlayer [src]="this.musicaActual?.url" (ended)="finalizarMusica()"></audio>
+        <button class="music-button" (click)="ponerMusica(audioPlayer)" [disabled]="yaTermino">▶️ Play</button>
     </div>
   
     <div class="guess-section">
-        <input type="text" placeholder="¿Qué canción suena?" [(ngModel)]="respuestaUsuario" class="guess-input">
+        <input type="text" placeholder="¿Qué canción es?" [(ngModel)]="respuestaUsuario" class="guess-input">
         <button class="guess-button" (click)="verificarRespuesta()">Enviar</button>
     </div>
   
@@ -32,4 +31,29 @@
     </div>
   
 </main>
+
+@if(partidaGanada){
+    <div class="modal">
+      <div class="modal-content win">
+        <h2>¡Ganaste! 🎉</h2>
+        <p>✅ Adivinaste: {{ correctas }} veces</p>
+        <p>❌ Fallaste: {{ incorrectas }} veces</p>
+        <button class="modal-button" (click)="reiniciar()">Jugar de nuevo</button>
+      </div>
+    </div>
+  }
+
+  @if(partidaPerdida){
+    <!-- Modal de Derrota -->
+    <div class="modal">
+      <div class="modal-content lose">
+        <h2>¡Perdiste! 😢</h2>
+
+        <p>❌ Fallaste: {{ incorrectas }} veces</p>
+        <p>✅ Adivinaste: {{ correctas }} veces</p>
+        
+        <button class="modal-button" (click)="reiniciar()">Intentar otra vez</button>
+      </div>
+    </div>
+  }
   

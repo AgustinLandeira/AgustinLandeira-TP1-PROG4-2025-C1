@@ -51,7 +51,7 @@ export class AhorcadoComponent implements OnInit {
 
   temporizador!:Subscription
   contador = 60
-  tiempoRestante = signal<number> (this.contador); // 10 minutos
+  tiempoRestante = signal<number> (this.contador); // 60 segundos
   tiempoFinal:string = ""
   ngOnInit(): void {
     
