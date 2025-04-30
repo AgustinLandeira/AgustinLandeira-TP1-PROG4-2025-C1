@@ -1,0 +1,121 @@
+<button class="salir-btn" routerLink="/bienvenida">Salir</button>
+@if(this.listaAhorcado() && this.listadoPreguntados() && this.listadoPreguntados()){
+    <table>
+        <caption>Ahorcado</caption>
+        <thead>
+            <tr>
+                <th>usuario</th>
+                <th>mail</th>
+                <th>tiempo de finalizacion</th>
+                <th>letras acertadas</th>
+                <th>letras erradas</th>
+                <th>Letras seleccionadas</th>
+                <th>partida</th>
+            </tr>
+        </thead>
+   
+        <tbody> 
+            @for(fila of this.listaAhorcado();track $index){
+                <tr>
+                    <td>{{fila.usuario}}</td>
+                    <td>{{fila.mail}}</td>
+                    <td>{{fila.tiempoFinalizacion}}</td>
+                    <td>{{fila.letrasAcertadas}}</td>
+                    <td>{{fila.letrasFalladas}}</td>
+                    <td>{{fila.letrasSeleccionadas}}</td>
+                    <td>{{fila.partida}}</td>
+                </tr>
+            }
+        </tbody>
+   
+    
+    </table>
+
+    <table>
+        <caption>Mayor Menor</caption>
+        <thead>
+            <tr>
+                <th>usuario</th>
+                <th>mail</th>
+                <th>tiempo de finalizacion</th>
+                <th>cartas acertadas</th>
+                <th>cartas erradas</th>
+                <th>partida</th>
+            </tr>
+        </thead>
+   
+        <tbody> 
+            @for(fila of this.listadoMayorMenor();track $index){
+                <tr>
+                    <td>{{fila.usuario}}</td>
+                    <td>{{fila.mail}}</td>
+                    <td>{{fila.tiempo_finalizacion}}</td>
+                    <td>{{fila.cartas_acertadas}}</td>
+                    <td>{{fila.cartas_erradas}}</td>
+                    <td>{{fila.partida}}</td>
+                </tr>
+            }
+        </tbody>
+   
+    
+    </table>
+
+    <table>
+        <caption>Preguntados</caption>
+        <thead>
+            <tr>
+                <th>usuario</th>
+                <th>mail</th>
+                <th>tiempo de finalizacion</th>
+                <th>paises acertadas</th>
+                <th>paises erradas</th>
+                <th>partida</th>
+            </tr>
+        </thead>
+   
+        <tbody> 
+            @for(fila of this.listadoPreguntados();track $index){
+                <tr>
+                    <td>{{fila.usuario}}</td>
+                    <td>{{fila.mail}}</td>
+                    <td>{{fila.tiempoFinalizacion}}</td>
+                    <td>{{fila.preguntasAcertadas}}</td>
+                    <td>{{fila.preguntasErradas}}</td>
+                    <td>{{fila.partida}}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <table>
+        <caption>Quiz Musica</caption>
+        <thead>
+            <tr>
+                <th>usuario</th>
+                <th>mail</th>
+                <th>tiempo de finalizacion</th>
+                <th>canciones acertadas</th>
+                <th>canciones erradas</th>
+                <th>partida</th>
+            </tr>
+        </thead>
+   
+        <tbody> 
+            @for(fila of this.listadoMusica();track $index){
+                <tr>
+                    <td>{{fila.usuario}}</td>
+                    <td>{{fila.mail}}</td>
+                    <td>{{fila.tiempoFinalizacion}}</td>
+                    <td>{{fila.cancionesAcertadas}}</td>
+                    <td>{{fila.cancionesErradas}}</td>
+                    <td>{{fila.partida}}</td>
+                </tr>
+            }
+        </tbody>
+   
+    </table>
+
+
+}
+
+

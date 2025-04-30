@@ -20,6 +20,7 @@ export class BienvenidaComponent {
   urlMayorMenor :string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//mayor-menor.png";
   urlMusica : string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//music.jpg";
   urlInfo : string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//info.png"
+  urlEstadistica : string = "https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes//skills.png";
 
   constructor(){}
 

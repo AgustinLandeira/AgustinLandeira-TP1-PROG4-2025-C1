@@ -65,10 +65,12 @@
 /* Game Sections */
 .game-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas fijas */
     gap: 30px;
     padding: 40px;
     justify-items: center;
+    max-width: 1000px; /* ancho máximo para que no se extiendan demasiado */
+    margin: 0 auto; /* centrar la grilla */
 }
 
 .game-card {
@@ -80,6 +82,13 @@
     transition: transform 0.3s;
     box-shadow: 0 0 15px orange;
    
+}
+
+.info{
+    height: 150px;
+    width: 50px;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
 .game-card:hover {
