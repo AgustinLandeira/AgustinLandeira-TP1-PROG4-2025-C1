@@ -5,6 +5,8 @@ import { imagen } from '../../interfaz/imagen';
 import { pais } from '../../interfaz/pais';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UsuarioPreguntados } from '../../class/usuarioPreguntados';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-preguntados',
@@ -30,10 +32,14 @@ export class PreguntadosComponent implements OnInit {
   temporizador! : Subscription
   tiempo : number = 60
   reloj = signal<number>(this.tiempo)
+  tiempoFinal:string = ""
   
   paisActual = signal< pais| null>(null)
 
   contador:number = 0
+
+  usuarioPreguntados ?: UsuarioPreguntados
+  authPreguntados = inject(AuthService)
   ngOnInit(): void {
       
     this.sub = this.apiPaises.traerPaises()
@@ -80,6 +86,17 @@ export class PreguntadosComponent implements OnInit {
   terminarTemporizador(){
 
     this.temporizador?.unsubscribe()
+    this.guardarTiempo()
+  }
+
+  guardarTiempo(){
+
+    const tiempoMs = this.reloj() * 1000; //lo convertimos a milisegundos pq los date usa milisegundos
+    const fecha = new Date(tiempoMs);// nos devuelve un objeto de tipo Date ej:(00:00:00)
+    //toISOSstring nos devuele un formato de tipo string: 1970-01-01T00:00:45.000Z
+    //substruing nos trae los caracteres desde la psocion 14 a 18
+    this.tiempoFinal = fecha.toISOString().substring(14, 19); // "mm:ss"
+    console.log(this.tiempoFinal)
   }
 
   mezclarPaises(paises: any[]){
@@ -156,16 +173,33 @@ export class PreguntadosComponent implements OnInit {
 
       this.terminarTemporizador()
       this.partidaPerdida = true
+      this.guardarDatos()
 
     }else if(this.vueltas == 11 && this.correctas > this.incorrectas){
       this.terminarTemporizador()
       this.partidaGanada = true
+      this.guardarDatos()
     }
 
   }
+
+  async guardarDatos(){
+
+    let partidaResultado = this.partidaGanada ? "ganada" : "perdida";
+
+    this.usuarioPreguntados = new UsuarioPreguntados(this.authPreguntados.nombreLogueado()?.usuario,this.authPreguntados.nombreLogueado()?.mail,
+    this.tiempoFinal,this.correctas,this.incorrectas,partidaResultado)
+
+    const {data,error} = await this.authPreguntados.suparbase.from("preguntadosScore").insert([this.usuarioPreguntados])
+
+    if(error){
+      await this.authPreguntados.suparbase.from("preguntadosScore").update(this.usuarioPreguntados).eq("mail",this.usuarioPreguntados.mail)
+    }
+  }
   ngOnDestroy(): void { //borramos la inscripcion para que no anda dando vueltas a pesar de que se elimine el componente
         this.sub?.unsubscribe();
-    }
+        this.temporizador.unsubscribe();
+  }
   reiniciar(){
 
     this.terminarTemporizador()

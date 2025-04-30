@@ -1,11 +1,10 @@
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UsuarioAhorcado } from '../../class/ahorcadoUsuario';
 import { AuthService } from '../../services/auth.service';
-import { AhorcadoScoreService } from '../../services/juegos/ahorcado/ahorcado-score.service';
+
 
 @Component({
   selector: 'app-ahorcado',
@@ -13,11 +12,10 @@ import { AhorcadoScoreService } from '../../services/juegos/ahorcado/ahorcado-sc
   templateUrl: './ahorcado.component.html',
   styleUrl: './ahorcado.component.css'
 })
-export class AhorcadoComponent implements OnInit {
+export class AhorcadoComponent implements OnInit,OnDestroy {
 
   //servicios
   authAhorcado = inject(AuthService)
-  ahorcadoScore = inject(AhorcadoScoreService)
 
   usuario? : UsuarioAhorcado
 
@@ -185,7 +183,7 @@ export class AhorcadoComponent implements OnInit {
 
   reiniciarJuego(){
 
-    this.temporizador?.unsubscribe()
+    this.detenerTemporizador()
     this.contador = 60
     this.tiempoRestante.set(this.contador)
     this.mostralModaVictoria = false
@@ -203,25 +201,29 @@ export class AhorcadoComponent implements OnInit {
 
     if(this.mostralModaVictoria){
 
-      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.error,
+      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado()?.usuario,this.authAhorcado.nombreLogueado()?.mail,
+      this.tiempoFinal,this.aciertos,this.error,
       this.letrasSeleccionadas,"ganada")
     }else{
-      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.error,
+      this.usuario = new UsuarioAhorcado(this.authAhorcado.nombreLogueado()?.usuario,this.authAhorcado.nombreLogueado()?.mail,
+      this.tiempoFinal,this.aciertos,this.error,
       this.letrasSeleccionadas,"perdida")
     }
-    console.log(this.usuario)
 
-    const resultado = await this.ahorcadoScore.verUsuarioExistente(this.usuario)
+    const {data,error} = await this.authAhorcado.suparbase.from("ahorcadoScore").insert([this.usuario])
 
-    console.log("EL resultado es: ")
-    console.log(resultado)
+    console.log("error: ")
+    console.log(error)
 
-    if(resultado){
-
-      console.log("actualizando......")
-      this.ahorcadoScore.actualizarDAtos(this.usuario)
-    }else{
-      console.log("se perdio")
+    if(error){
+      console.log("actualizando")
+      await this.authAhorcado.suparbase.from('ahorcadoScore').update(this.usuario).eq('mail',this.usuario.mail)
     }
+
   }
+
+  ngOnDestroy(): void {
+      this.temporizador.unsubscribe()
+  }
+
 }

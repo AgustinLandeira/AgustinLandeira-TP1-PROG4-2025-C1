@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { imagen } from '../../interfaz/imagen';
 import { interval, Subscription } from 'rxjs';
@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 import { UsuarioMayorMenor } from '../../class/mayorMenorUsuario';
 import { AuthService } from '../../services/auth.service';
 import { AhorcadoComponent } from '../ahorcado/ahorcado.component';
-import { AhorcadoScoreService } from '../../services/juegos/ahorcado/ahorcado-score.service';
-import { MayorMenorScoreService } from '../../services/juegos/mayor-menor/mayor-menor-score.service';
 
 @Component({
   selector: 'app-mayor-menor',
@@ -15,7 +13,7 @@ import { MayorMenorScoreService } from '../../services/juegos/mayor-menor/mayor-
   templateUrl: './mayor-menor.component.html',
   styleUrl: './mayor-menor.component.css'
 })
-export class MayorMenorComponent implements OnInit {
+export class MayorMenorComponent implements OnInit,OnDestroy {
 
   //usuarioahorcado
   usuario ?: UsuarioMayorMenor
@@ -23,7 +21,6 @@ export class MayorMenorComponent implements OnInit {
 
   //servicos
   user = inject(AuthService)
-  dbMayorMenor = inject(MayorMenorScoreService)
 
   //variables para el tiempo
   tiempoFinal :string = ""
@@ -77,7 +74,7 @@ export class MayorMenorComponent implements OnInit {
 
       this.contador -= 1
       this.tiempoRestante.set(this.contador)
-      
+      console.log(this.contador)
       if(this.tiempoRestante() <= 0){
        
 
@@ -103,7 +100,7 @@ export class MayorMenorComponent implements OnInit {
     //toISOSstring nos devuele un formato de tipo string: 1970-01-01T00:00:45.000Z
     //substruing nos trae los caracteres desde la psocion 14 a 18
     this.tiempoFinal = fecha.toISOString().substring(14, 19); // "mm:ss"
-    console.log(this.tiempoFinal)
+    
   }
 
   agregarCartas(listaUrl:string[]):imagen[]{
@@ -127,7 +124,7 @@ export class MayorMenorComponent implements OnInit {
 
   elegirSiguienteCarta(listaCartas:imagen[],cartaActual:imagen){
 
-    console.log(listaCartas)
+    
     listaCartas = listaCartas.filter(imagen => imagen.valor != cartaActual.valor)
     
     const proximaCarta = listaCartas[Math.floor(Math.random() * listaCartas.length)]
@@ -206,41 +203,35 @@ export class MayorMenorComponent implements OnInit {
   guardarDatos(){
 
     if(this.partidaGanada){
-      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.errados,"Ganada")
-      this.verificarUsuario(this.usuario)
-      //this.subirDatos()
+      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado()?.usuario,this.user.nombreLogueado()?.mail,
+      this.tiempoFinal,this.aciertos,this.errados,"Ganada")
+      // this.verificarUsuario(this.usuario)
+      this.subirDatos(this.usuario)
 
     }else if(this.partidaPerdida){
-      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado()?.usuario,this.tiempoFinal,this.aciertos,this.errados,"Perdida")
-      this.verificarUsuario(this.usuario)
-      //this.subirDatos()
+      this.usuario = new UsuarioMayorMenor(this.user.nombreLogueado()?.usuario,this.user.nombreLogueado()?.mail,this.tiempoFinal,this.aciertos,this.errados,"Perdida")
+      // this.verificarUsuario(this.usuario)
+      this.subirDatos(this.usuario)
     }
     
     
   }
 
-  verificarUsuario(usuario:UsuarioMayorMenor){
+  async subirDatos(usuario:UsuarioMayorMenor){
 
-    this.dbMayorMenor.verificarUsuarioExistente(usuario)
-    
+    const {data,error} = await this.user.suparbase.from("mayor-menor_score").insert([usuario])
+    console.log("error: ")
+    console.log(error)
+    if(error){
+      console.log("actualizando")
+      await this.user.suparbase.from('mayor-menor_score').update(usuario).eq('mail',usuario.mail)
+    }
+
   }
 
-  // subirDatos(){
+  ngOnDestroy(): void {
+      this.temporizador.unsubscribe()
+  }
 
-  //   if(this.usuario)this.dbMayorMenor.subirNuevosDatos(this.usuario)
-    
-  //   // if(this.usuario && this.dbMayorMenor.existe()){
-
-  //   //   console.log("entramos")
-  //   //   if(this.dbMayorMenor.existe() == true){
-        
-  //   //     this.dbMayorMenor.actualizarDatosJugador(this.usuario)
-  //   //   }else{
-        
-  //   //     this.dbMayorMenor.subirNuevosDatos(this.usuario)
-  //   //   }
-
-  //   // }else{console.log("no existe")}
-
-  // }
+  
 }

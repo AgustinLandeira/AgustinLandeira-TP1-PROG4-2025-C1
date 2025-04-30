@@ -5,7 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 
 @Component({
   selector: 'app-chat',
@@ -13,7 +12,7 @@ import { ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent implements OnInit,AfterViewChecked  {
+export class ChatComponent implements OnInit  {
 
   //mensajes : usuarioChat[] | undefined = []
   listaMensaje = signal<usuarioChat[] | undefined>([])
@@ -79,20 +78,7 @@ export class ChatComponent implements OnInit,AfterViewChecked  {
 
  }
 
- @ViewChild('ultimoMensaje') ultimoMensaje!: ElementRef;
-
-  // Esto se llama automáticamente después de que se renderiza el DOM
-  ngAfterViewChecked() {
-    this.scrollAlFinal();
-  }
-
-  scrollAlFinal() {
-    try {
-      this.ultimoMensaje.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    } catch (err) {
-      console.error("Error al hacer scroll:", err);
-    }
-  }
+  
 
 
 }

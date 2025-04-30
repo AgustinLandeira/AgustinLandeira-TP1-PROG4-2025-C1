@@ -3,14 +3,16 @@ import { Usuario } from "./usuario";
 export class UsuarioMayorMenor {
 
     usuario: string | null | undefined;
+    mail: string | null | undefined;
     tiempo_finalizacion: string;
     cartas_acertadas:number;
     cartas_erradas:number;
     partida:string;
 
-    constructor(usuario:string | null | undefined,tiempo_finalizacion:string,cartas_acertadas: number,cartas_erradas:number,partida:string){
+    constructor(usuario:string | null | undefined,mail:string | null | undefined,tiempo_finalizacion:string,cartas_acertadas: number,cartas_erradas:number,partida:string){
 
         this.usuario = usuario
+        this.mail = mail
         this.tiempo_finalizacion = tiempo_finalizacion
         this.cartas_acertadas = cartas_acertadas
         this.cartas_erradas = cartas_erradas

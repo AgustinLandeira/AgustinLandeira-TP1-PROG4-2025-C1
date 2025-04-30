@@ -1,10 +1,12 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { musica } from '../../interfaz/musica';
 import { RouterLink } from '@angular/router';
 
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { UsuarioMusica } from '../../class/usuarioMusica';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-musica',
@@ -12,7 +14,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './musica.component.html',
   styleUrl: './musica.component.css'
 })
-export class MusicaComponent implements OnInit {
+export class MusicaComponent implements OnInit,OnDestroy {
 
   correctas : number = 0
   incorrectas : number = 0
@@ -22,6 +24,7 @@ export class MusicaComponent implements OnInit {
   temporizador!: Subscription
   tiempo:number = 90
   tiempoRestante = signal<number>(this.tiempo)
+  tiempoFinal : string = ""
 
   listaMusica: musica[] = [
     {nombre:"a sky full of stars",url:"https://sibndstdwpyfrhowrqui.supabase.co/storage/v1/object/public/imagenes/audios/Coldplay%20-%20A%20Sky%20Full%20Of%20Stars%20(Official%20Video)%20(mp3cut.net).mp3"},
@@ -43,7 +46,8 @@ export class MusicaComponent implements OnInit {
   yaTermino:boolean = false
 
   audioPlayer?:HTMLAudioElement
-
+  usuarioMusica ?:UsuarioMusica
+  auth = inject(AuthService)
   ngOnInit(): void {
       
     this.musicaActual = this.elegirMusica(this.listaMusica)
@@ -73,6 +77,16 @@ export class MusicaComponent implements OnInit {
   terminarTemporizador(){
 
     this.temporizador.unsubscribe()
+    this.guardarTiempo()
+  }
+
+  guardarTiempo(){
+
+    const milisegundos = this.tiempoRestante() * 1000
+    const date = new Date(milisegundos)
+
+    this.tiempoFinal = date.toISOString().substring(14,19)
+
   }
 
   elegirMusica(lista: musica[]){
@@ -139,13 +153,34 @@ export class MusicaComponent implements OnInit {
       this.partidaGanada = true
       this.apagarMusica()
       this.terminarTemporizador()
+      this.guardarDatos()
       
     }else{
       this.partidaPerdida = true
       this.apagarMusica()
       this.terminarTemporizador()
+      this.guardarDatos()
       
     }
+  }
+
+  async guardarDatos(){
+
+    console.log("estamos")
+    let resultadoFinal = this.partidaGanada ? "ganada" : "perdida"
+
+    this.usuarioMusica = new UsuarioMusica(this.auth.nombreLogueado()?.usuario,this.auth.nombreLogueado()?.mail,this.tiempoFinal,
+    this.correctas,this.incorrectas,resultadoFinal)
+
+    const {data,error} = await this.auth.suparbase.from("musicaScore").insert([this.usuarioMusica])
+
+    console.log(error)
+    console.log(data)
+
+    if(error){
+      await this.auth.suparbase.from("musicaScore").update(this.usuarioMusica).eq("mail",this.usuarioMusica.mail)
+    }
+
   }
   reiniciar(){
     this.terminarTemporizador()
@@ -173,5 +208,9 @@ export class MusicaComponent implements OnInit {
     this.yaTermino = false
 
     this.ngOnInit()
+  }
+
+  ngOnDestroy(): void {
+      this.temporizador.unsubscribe()
   }
 }
