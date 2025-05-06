@@ -1,7 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PaisesService } from '../../services/api/paises.service';
 import { interval, Observable, Subscription } from 'rxjs';
-import { imagen } from '../../interfaz/imagen';
 import { pais } from '../../interfaz/pais';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';

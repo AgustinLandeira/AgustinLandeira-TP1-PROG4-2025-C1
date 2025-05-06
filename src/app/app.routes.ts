@@ -68,7 +68,6 @@ export const routes: Routes = [
     },
     {
         "path":"puntajes",
-        canActivate:[juegosGuard],
         loadComponent:()=> import("./components/puntajes/puntajes.component").then((module) => module.PuntajesComponent)
     },
     {

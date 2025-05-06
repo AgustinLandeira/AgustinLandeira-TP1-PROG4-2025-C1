@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 export const juegosGuard: CanActivateFn = async (route, state) => {
   
@@ -18,6 +19,15 @@ export const juegosGuard: CanActivateFn = async (route, state) => {
   }
   router.navigate(["/bienvenida"]);
   // No hay sesión
-  console.log("No hay sesión, dejo pasar");
+  
+  Swal.fire({
+    "title":"Error al entrar al juego",
+    icon:"error",
+    text:"Tenes que iniciar sesion para poder jugar",
+    background:"#1c1c1c",
+    color:"orange",
+    confirmButtonColor: 'orange'
+
+  })
   return false;
 };
