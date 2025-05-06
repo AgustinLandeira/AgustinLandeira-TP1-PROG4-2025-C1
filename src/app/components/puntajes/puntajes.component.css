@@ -83,3 +83,82 @@ tbody tr:hover {
     transition: 0.2s ease-in-out;
 }
 
+@media (max-width: 768px) {
+    table {
+        font-size: 8px;
+        margin: 20px auto;
+    }
+
+    caption {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 6px;
+    }
+
+    .salir-btn {
+        font-size: 8px;
+        padding: 8px 12px;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    table {
+        width: 100%;
+        font-size: 7px;
+    }
+
+    caption {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 5px;
+    }
+
+    :host {
+        padding: 10px;
+    }
+
+    .salir-btn {
+        font-size: 7px;
+        padding: 6px 10px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    table {
+        font-size: 5px;
+        margin: 10px auto;
+    }
+
+    caption {
+        font-size: 5px;
+        padding: 6px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 3px;
+    }
+
+    :host {
+        padding: 7px;
+    }
+
+    .salir-btn {
+        font-size: 7px;
+        padding: 6px 10px;
+        top: 10px;
+        right: 10px;
+    }
+}
