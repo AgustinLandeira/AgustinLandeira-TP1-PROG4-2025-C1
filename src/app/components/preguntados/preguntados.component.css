@@ -155,3 +155,10 @@
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+@media (max-width:450px){
+
+    .timer{
+        font-size: 13px;
+    }
+}

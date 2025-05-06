@@ -213,3 +213,9 @@
     cursor:not-allowed;
 }
 
+@media (max-width:450px){
+
+    .timer{
+        font-size: 13px;
+    }
+}

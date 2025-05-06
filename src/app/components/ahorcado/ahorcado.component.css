@@ -35,8 +35,6 @@
     font-family: 'Press Start 2P', cursive;
 }
 
-
-
 .nav-actions .nav-button {
     background: orange;
     border: none;
@@ -176,4 +174,11 @@
 @keyframes aparecer {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width:450px){
+
+    .timer{
+        font-size: 13px;
+    }
 }
