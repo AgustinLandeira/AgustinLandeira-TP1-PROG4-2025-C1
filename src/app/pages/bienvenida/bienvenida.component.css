@@ -124,3 +124,72 @@
     background-color: #ff9900;
     transform: scale(1.05);
 }
+
+
+@media (max-width: 600px) {
+    .game-section {
+        grid-template-columns: 1fr; /* solo 1 columna */
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .game-card {
+        width: 90%;
+    }
+
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .nav-button {
+        font-size: 9px;
+        padding: 5px 8px;
+    }
+
+    .user-info {
+        font-size: 10px;
+    }
+
+    .game-card h2 {
+        font-size: 14px;
+    }
+
+    .play-button {
+        padding: 8px 16px;
+        font-size: 10px;
+    }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 900px) {
+    .game-section {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+        gap: 20px;
+        padding: 30px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .nav-button {
+        padding: 6px 10px;
+        font-size: 10px;
+        margin-top: 5px;
+    }
+
+    .user-info {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
