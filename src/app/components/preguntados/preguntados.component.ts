@@ -75,6 +75,7 @@ export class PreguntadosComponent implements OnInit {
 
         this.terminarTemporizador()
         this.partidaPerdida = true
+        this.guardarDatos()
       }
 
 

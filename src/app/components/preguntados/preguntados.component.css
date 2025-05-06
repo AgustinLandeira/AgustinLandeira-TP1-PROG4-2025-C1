@@ -156,9 +156,14 @@
     to { transform: scale(1); opacity: 1; }
 }
 
-@media (max-width:450px){
+@media (max-width:460px){
 
     .timer{
         font-size: 13px;
+    }
+
+    .resultados {
+        
+        font-size: 3px;
     }
 }

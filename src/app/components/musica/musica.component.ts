@@ -69,6 +69,7 @@ export class MusicaComponent implements OnInit,OnDestroy {
         this.partidaPerdida = true
         this.apagarMusica()
         this.terminarTemporizador()
+        this.guardarDatos()
       }
 
     })
