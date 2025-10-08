@@ -13,7 +13,7 @@ export class PaisesService {
 
   traerPaises(){
 
-    return this.http.get<any>("https://restcountries.com/v3.1/all") // realizamos un metodo http(usamos el get) para extraer los datos y devuelve un observable
+    return this.http.get<any>("https://restcountries.com/v3.1/all?fields=name,flags,translations") // realizamos un metodo http(usamos el get) para extraer los datos y devuelve un observable
     .pipe(map(response =>{ // usamos el pipe para procesar los datos del observable
       //con el map recorremos cada personaje
       return response.map((personaje:{name:any;flags:any;}) =>({ //de cada personaje solamente extraemos su nombre y imagen
