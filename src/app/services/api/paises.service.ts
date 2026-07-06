@@ -11,18 +11,16 @@ export class PaisesService {
   lista: any[] = []
   constructor() { }
 
-  traerPaises(){
-
-    return this.http.get<any>("https://restcountries.com/v3.1/all?fields=name,flags,translations") // realizamos un metodo http(usamos el get) para extraer los datos y devuelve un observable
-    .pipe(map(response =>{ // usamos el pipe para procesar los datos del observable
-      //con el map recorremos cada personaje
-      return response.map((personaje:{name:any;flags:any;}) =>({ //de cada personaje solamente extraemos su nombre y imagen
-
-        nombre : personaje.name.common,//obtenemos el nombre del pais
-        imagen : personaje.flags.png//personaje.image// obtenemos la imagen del pais
-
-      }));
-
-    }));
+  traerPaises() {
+    return this.http
+      .get<any>("https://countriesnow.space/api/v0.1/countries/flag/images")
+      .pipe(
+        map(response =>
+          response.data.map((pais: any) => ({
+            nombre: pais.name,
+            imagen: pais.flag
+          }))
+        )
+    );
   }
 }
